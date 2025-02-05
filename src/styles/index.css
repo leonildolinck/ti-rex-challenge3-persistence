@@ -12,34 +12,34 @@
 }
 
 .splide__pagination__page {
-  width: 27px; 
+  width: 27px;
   height: 27px;
-  border-radius: 50%; 
-  background-color: transparent; 
+  border-radius: 50%;
+  background-color: transparent;
   border: 0px solid #d1d5db;
   transition: all 0.3s ease;
   display: flex;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
 }
 
 .splide__pagination__page::before {
-  content: '';
+  content: "";
   display: block;
   width: 11px;
-  height: 11px ;
-  background-color: #d1d5db; 
+  height: 11px;
+  background-color: #d1d5db;
   border-radius: 50%;
 }
 
 .splide__pagination__page.is-active {
   background-color: transparent;
-  border-color: #B88E2F;
-  border: 1px solid #B88E2F;
+  border-color: #b88e2f;
+  border: 1px solid #b88e2f;
 }
 
 .splide__pagination__page.is-active::before {
-  background-color: #B88E2F;
+  background-color: #b88e2f;
 }
 
 .splide__pagination {
@@ -78,4 +78,19 @@
   height: 100%;
   object-fit: cover;
   border: 2px solid black;
+}
+
+.clip-star {
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
 }

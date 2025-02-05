@@ -3,20 +3,26 @@ import React, { MouseEventHandler } from "react";
 interface ButtonProps {
   label: string;
   type: "button" | "submit" | "reset";
-  kind: "primary" | "secondary" | "secondary-variation" | "outline" | "create";
+  kind:
+    | "primary"
+    | "secondary"
+    | "secondary-variation"
+    | "outline"
+    | "outline-black"
+    | "create";
   size?: "sm" | "sm-login" | "md" | "lg" | "full";
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const BUTTON_KINDS: Record<ButtonProps["kind"], string> = {
-  primary:
-    "bg-[#B88E2F] text-white font-bold h-[74px]",
+  primary: "bg-[#B88E2F] text-white font-bold h-[74px]",
   secondary:
     "bg-white text-[#160A60] rounded-[8px] hover:bg-[#5C5A79] hover:text-white",
   "secondary-variation":
     "bg-white text-[#160A60] font-medium rounded-[8px] hover:bg-[#1E293B] hover:text-white",
-  outline:
-    "bg-white font-semibold text-[#B88E2F] border border-[#B88E2F]",
+  outline: "bg-white font-semibold text-[#B88E2F] border border-[#B88E2F]",
+  "outline-black":
+    "font-poppins text-[20px] bg-white text-black border border-black rounded-[15px]",
   create:
     "bg-[#22C55E] text-white rounded-[8px] border border-[#22C55E] hover:bg-[#5CB77D]",
 };

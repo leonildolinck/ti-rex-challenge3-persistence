@@ -1,9 +1,7 @@
-import React from 'react';
-//import { BrowserRouter as Router,{*/Routes, Route} } from 'react-router-dom';
-//import { BrowserRouter as Router} from 'react-router-dom';
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
-import Home from './pages/Home';
+import React from "react";
+import { Routes, Route } from 'react-router-dom'
+import Home from "./pages/Home";
+import SingleProduct from "./pages/SingleProduct";
 // import Home from './pages/Home';
 // import Shop from './pages/Shop';
 // import SingleProduct from './pages/SingleProduct';
@@ -12,14 +10,16 @@ import Home from './pages/Home';
 // import Login from './pages/Login';
 // import Register from './pages/Register';
 
-function App() {
+const App: React.FC = () => {
   return (
     <div>
-      <Header />
-      <Home />
-      <Footer />
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/product/:id" element={<SingleProduct />} />
+      </Routes>
+    </div>
   );
-}
+};
 
 export default App;
