@@ -1,7 +1,28 @@
+//import { useState } from "react";
+//import CartModal from "../../store/CartModal";
+
 import { Link } from "react-router-dom";
 import React from "react";
 
-const Header: React.FC = () => {
+import { useSelector, useDispatch } from 'react-redux'
+import { loginUser, logoutUser } from "../../redux/user/actions";
+
+ const Header: React.FC = () => {
+//   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const { currentUser } = useSelector(rootReducer => rootReducer.userReducer)
+  console.log({currentUser})
+
+  const dispatch = useDispatch()
+
+  const handleLoginClick = () => {
+    dispatch(loginUser({name: "usuario", email: "user@text.com" }))  
+  }
+
+  const handleLogoutClick = () => {
+    dispatch(logoutUser())  
+  }
+
   return (
     <header className="p-7">
       <div className="container mx-auto flex justify-between items-center">
@@ -11,7 +32,10 @@ const Header: React.FC = () => {
             alt="Logo Furniro"
             className="lg:h-[32px] lg:w-[50px]"
           />
-          <Link to="/" className="text-xl font-bold font-montserrat lg:text-[34px]">
+          <Link
+            to="/"
+            className="text-xl font-bold font-montserrat lg:text-[34px]"
+          >
             Furniro
           </Link>
         </div>
@@ -39,7 +63,9 @@ const Header: React.FC = () => {
             </li>
           </ul>
         </nav>
-        <div className="flex flex-row gap-8 mr-[40px]">
+        <div className="flex flex-row gap-8 mr-[40px]"> 
+          {currentUser ? (<button onClick={handleLogoutClick}>LOGOUT</button>) :
+          <button onClick={handleLoginClick}>LOGIN</button>}
           <Link to="/profile">
             <img
               src="https://desafio-3.s3.us-east-1.amazonaws.com/profile.svg"
@@ -47,14 +73,15 @@ const Header: React.FC = () => {
             />
           </Link>
 
-          <Link
-            to="/cart">
+          <button /* onClick={() => setIsCartOpen(true) */ >
+
             <img
               src="https://desafio-3.s3.us-east-1.amazonaws.com/cart.svg"
               alt=""
             />
-          </Link>
+          </button>
         </div>
+        {/*<CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />*/}
       </div>
     </header>
   );
