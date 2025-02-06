@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 //import rootReducer from "../redux/root-reducer";
 import CardItem from "./CartItem";
 import Button from "../components/common/Button";
+import { Link } from "react-router-dom";
+import { selectProductsTotalPrice } from "../components/cart/cart.selectors";
 
 // import { RootState } from "../redux/store";
 // import { removeItem, clearCart } from "../store/cartSlice";
@@ -16,6 +18,10 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
   //   const cartItems = useSelector((state: RootState) => state.cart.items);
   //   const dispatch = useDispatch();
   const { products } = useSelector((rootReducer) => rootReducer.cartReducer);
+
+  const productsTotalPrice = useSelector(selectProductsTotalPrice)
+
+
 
   if (!isOpen) return null;
 
@@ -45,13 +51,13 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
   <div className="flex items-center justify-between px-8 py-4">
     <span className="font-poppins">Subtotal</span>
     <span className="font-semibold text-[#B88E2F] mr-20">
-      R$ {'520,000.00'}
+      R$ {productsTotalPrice}
     </span>
   </div>
 
   <div className="flex flex-row min-h-[84px] items-center justify-center border-t border-[#D9D9D9]">
     <div className="flex flex-row text-[12px] gap-4">
-      <Button label="Cart" type="button" kind="modal" />
+      <Link to="/cart"><Button label="Cart" type="button" kind="modal" /></Link>      
       <Button label="Checkout" type="button" kind="modal" />
       <Button label="Comparison" type="button" kind="modal" />
     </div>

@@ -6,6 +6,7 @@ import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser, logoutUser } from "../user/actions";
+import { selectProductsCount } from "../cart/cart.selectors";
 
 const Header: React.FC = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -13,10 +14,9 @@ const Header: React.FC = () => {
   const { currentUser } = useSelector((rootReducer) => rootReducer.userReducer);
   const { products } = useSelector((rootReducer) => rootReducer.cartReducer);
 
-  const productsCount = useMemo(() => {
-    return products.reduce((acc, curr) => acc + curr.quantity, 0)}, [products])
-
   const dispatch = useDispatch();
+
+  const productsCount = useSelector(selectProductsCount)
 
   const handleLoginClick = () => {
     dispatch(loginUser({ name: "usuario", email: "user@text.com" }));
