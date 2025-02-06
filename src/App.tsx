@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route } from 'react-router-dom'
 import Home from "./pages/Home";
 import SingleProduct from "./pages/SingleProduct";
+import Cart from "./pages/Cart";
 
 // import Home from './pages/Home';
 // import Shop from './pages/Shop';
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/product/:id" element={<SingleProduct />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </div>
   );
