@@ -1,27 +1,30 @@
-//import { useState } from "react";
-//import CartModal from "../../store/CartModal";
+import { useMemo, useState } from "react";
+import CartModal from "../../store/CartModal";
 
 import { Link } from "react-router-dom";
 import React from "react";
 
-import { useSelector, useDispatch } from 'react-redux'
-import { loginUser, logoutUser } from "../../redux/user/actions";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser, logoutUser } from "../user/actions";
 
- const Header: React.FC = () => {
-//   const [isCartOpen, setIsCartOpen] = useState(false);
+const Header: React.FC = () => {
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const { currentUser } = useSelector(rootReducer => rootReducer.userReducer)
-  console.log({currentUser})
+  const { currentUser } = useSelector((rootReducer) => rootReducer.userReducer);
+  const { products } = useSelector((rootReducer) => rootReducer.cartReducer);
 
-  const dispatch = useDispatch()
+  const productsCount = useMemo(() => {
+    return products.reduce((acc, curr) => acc + curr.quantity, 0)}, [products])
+
+  const dispatch = useDispatch();
 
   const handleLoginClick = () => {
-    dispatch(loginUser({name: "usuario", email: "user@text.com" }))  
-  }
+    dispatch(loginUser({ name: "usuario", email: "user@text.com" }));
+  };
 
   const handleLogoutClick = () => {
-    dispatch(logoutUser())  
-  }
+    dispatch(logoutUser());
+  };
 
   return (
     <header className="p-7">
@@ -63,9 +66,12 @@ import { loginUser, logoutUser } from "../../redux/user/actions";
             </li>
           </ul>
         </nav>
-        <div className="flex flex-row gap-8 mr-[40px]"> 
-          {currentUser ? (<button onClick={handleLogoutClick}>LOGOUT</button>) :
-          <button onClick={handleLoginClick}>LOGIN</button>}
+        <div className="flex flex-row gap-8 mr-[40px]">
+          {currentUser ? (
+            <button onClick={handleLogoutClick}>LOGOUT</button>
+          ) : (
+            <button onClick={handleLoginClick}>LOGIN</button>
+          )}
           <Link to="/profile">
             <img
               src="https://desafio-3.s3.us-east-1.amazonaws.com/profile.svg"
@@ -73,15 +79,15 @@ import { loginUser, logoutUser } from "../../redux/user/actions";
             />
           </Link>
 
-          <button /* onClick={() => setIsCartOpen(true) */ >
-
+          <button onClick={() => setIsCartOpen(true)}>
             <img
               src="https://desafio-3.s3.us-east-1.amazonaws.com/cart.svg"
               alt=""
             />
           </button>
+          {(productsCount)}
         </div>
-        {/*<CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />*/}
+        {<CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />}
       </div>
     </header>
   );

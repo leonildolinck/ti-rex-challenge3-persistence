@@ -1,6 +1,8 @@
 import React from "react";
 import Button from "../common/Button";
 import Product from "../../services/ProductInterface";
+import { useDispatch } from "react-redux";
+import { addProductToCart } from "../cart/actions";
 
 
 interface ProductCardProps {
@@ -8,12 +10,19 @@ interface ProductCardProps {
   onAddToCart: () => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { old_price: oldPrice, actual_price: actualPrice } = product;
   const discount =
     oldPrice > actualPrice
       ? Math.round(((oldPrice - actualPrice) / oldPrice) * 100)
       : null;
+
+
+  const dispatch = useDispatch()
+
+  const handleProductClick = () => {
+    dispatch(addProductToCart(product))
+  }
 
   return (
     <div className="relative bg-[#F4F5F7] overflow-hidden w-[285px]">
@@ -50,7 +59,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
 
       <div className="absolute inset-0 bg-[#3A3A3A] bg-opacity-70 opacity-0 hover:opacity-100 flex items-center justify-center transition-opacity">
         <Button
-          onClick={onAddToCart}
+          onClick={handleProductClick}
           label="Add to cart"
           type="button"
           kind="outline"

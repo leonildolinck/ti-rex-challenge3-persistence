@@ -9,7 +9,8 @@ interface ButtonProps {
     | "secondary-variation"
     | "outline"
     | "outline-black"
-    | "create";
+    | "create"
+    | "modal";
   size?: "sm" | "sm-login" | "md" | "lg" | "full";
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
@@ -25,6 +26,8 @@ const BUTTON_KINDS: Record<ButtonProps["kind"], string> = {
     "font-poppins text-[20px] bg-white text-black border border-black rounded-[15px]",
   create:
     "bg-[#22C55E] text-white rounded-[8px] border border-[#22C55E] hover:bg-[#5CB77D]",
+  modal:
+    "flex border border-[#000000] rounded-[50px] h-[30px] items-center justify-center px-6"
 };
 
 const BUTTON_SIZES: Record<
@@ -64,7 +67,7 @@ const Button: React.FC<ButtonProps> = ({
   label,
   type,
   kind,
-  size = "lg",
+  size,
   onClick,
 }) => {
   const screenSize = getScreenSize();
