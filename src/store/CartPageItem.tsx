@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeProductFromCart, increaseQuantity, decreaseQuantity } from "../components/cart/actions";
-import { selectProductsSubtotals} from "../components/cart/cart.selectors";
+
 
 const CartPageItem: React.FC = ({ product }) => {
   const dispatch = useDispatch();
@@ -16,9 +16,7 @@ const CartPageItem: React.FC = ({ product }) => {
 
   const handleDecreaseClick = () => {
     dispatch(decreaseQuantity(product.id));
-  }
-
-  const productsSubtotalPrice = useSelector(selectProductsSubtotals)
+  } 
 
   return (
     <div className="flex flex-row text-poppins mt-[55px] mr-[25px] justify-between items-center">

@@ -8,7 +8,7 @@ interface ButtonProps {
     | "secondary"
     | "secondary-variation"
     | "outline"
-    | "outline-black"
+    | "outlineblack"
     | "create"
     | "modal";
   size?: "sm" | "sm-login" | "md" | "lg" | "full";
@@ -22,8 +22,8 @@ const BUTTON_KINDS: Record<ButtonProps["kind"], string> = {
   "secondary-variation":
     "bg-white text-[#160A60] font-medium rounded-[8px] hover:bg-[#1E293B] hover:text-white",
   outline: "bg-white font-semibold text-[#B88E2F] border border-[#B88E2F]",
-  "outline-black":
-    "font-poppins text-[20px] bg-white text-black border border-black rounded-[15px]",
+  outlineblack:
+    "font-poppins text-[20px] text-black border border-[#000000] rounded-[15px] h-[58px]",
   create:
     "bg-[#22C55E] text-white rounded-[8px] border border-[#22C55E] hover:bg-[#5CB77D]",
   modal:
