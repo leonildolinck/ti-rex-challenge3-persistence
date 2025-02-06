@@ -57,7 +57,7 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
   <div className="flex flex-row min-h-[84px] items-center justify-center border-t border-[#D9D9D9]">
     <div className="flex flex-row text-[12px] gap-4">
       <Link to="/cart"><Button label="Cart" type="button" kind="modal" /></Link>      
-      <Button label="Checkout" type="button" kind="modal" />
+      <Link to="/checkout"> <Button label="Checkout" type="button" kind="modal" /></Link>   
       <Button label="Comparison" type="button" kind="modal" />
     </div>
   </div>
