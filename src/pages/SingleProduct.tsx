@@ -119,7 +119,7 @@ const SingleProduct: React.FC = () => {
               <Button
                 label="Add To Cart"
                 type="button"
-                kind="outline-black"
+                kind="outlineblack"
                 size="lg"
               />
               <hr className="my-8 p-4 border-t border-[#D9D9D9]" />

@@ -1,9 +1,9 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import CartModal from "../../store/CartModal";
 
 import { Link } from "react-router-dom";
 import React from "react";
-
+import { RootState } from "../../redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser, logoutUser } from "../user/actions";
 import { selectProductsCount } from "../cart/cart.selectors";
@@ -11,9 +11,8 @@ import { selectProductsCount } from "../cart/cart.selectors";
 const Header: React.FC = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const { currentUser } = useSelector((rootReducer) => rootReducer.userReducer);
-  const { products } = useSelector((rootReducer) => rootReducer.cartReducer);
-
+  const { currentUser } = useSelector((state: RootState) => state.user); // Acesse state.user
+  
   const dispatch = useDispatch();
 
   const productsCount = useSelector(selectProductsCount)

@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../common/Button";
 import Product from "../../services/ProductInterface";
 import { useDispatch } from "react-redux";
-import { addProductToCart } from "../cart/actions";
+import { addProductToCart } from "../cart/slice";
 
 
 interface ProductCardProps {

@@ -1,11 +1,12 @@
 import React from "react";
 import CartPageItem from "../../store/CartPageItem";
+import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { selectProductsTotalPrice } from "../cart/cart.selectors";
 import Button from "../common/Button";
 
 const CartSection: React.FC = () => {
-  const { products } = useSelector((rootReducer) => rootReducer.cartReducer);
+  const { products } = useSelector((state: RootState) => state.cart);
 
   const productsTotalPrice = useSelector(selectProductsTotalPrice);
 

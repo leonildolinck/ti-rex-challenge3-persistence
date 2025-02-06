@@ -1,9 +1,22 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { removeProductFromCart, increaseQuantity, decreaseQuantity } from "../components/cart/actions";
+import { useDispatch } from "react-redux";
+import { removeProductFromCart, increaseQuantity, decreaseQuantity } from "../components/cart/slice";
 
 
-const CartPageItem: React.FC = ({ product }) => {
+interface Product {
+  id: string;
+  name: string;
+  image: string;
+  actual_price: number;
+  quantity: number;
+}
+
+interface CartPageItemProps {
+  product: Product;
+}
+
+
+const CartPageItem: React.FC<CartPageItemProps> = ({ product }) => {
   const dispatch = useDispatch();
 
   const handleRemoveClick = () => {

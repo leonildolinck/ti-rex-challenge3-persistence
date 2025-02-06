@@ -1,8 +1,10 @@
-import { combineReducers }  from 'redux'
+import { combineReducers } from "@reduxjs/toolkit";
+import userReducer from "../components/user/reducer";
+import cartReducer from "../components/cart/slice";
 
-import userReducer from '../components/user/reducer';
-import cartReducer from '../components/cart/reducer';
+const rootReducer = combineReducers({
+  user: userReducer,
+  cart: cartReducer,
+});
 
-const rootReducer = combineReducers({ userReducer, cartReducer });
-
-export default rootReducer
+export default rootReducer;

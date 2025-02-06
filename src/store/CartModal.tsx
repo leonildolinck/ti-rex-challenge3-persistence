@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-//import rootReducer from "../redux/root-reducer";
+import { RootState } from "../redux/store";
 import CardItem from "./CartItem";
 import Button from "../components/common/Button";
 import { Link } from "react-router-dom";
@@ -15,9 +15,8 @@ interface CartModalProps {
 }
 
 const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
-  //   const cartItems = useSelector((state: RootState) => state.cart.items);
-  //   const dispatch = useDispatch();
-  const { products } = useSelector((rootReducer) => rootReducer.cartReducer);
+  const { products } = useSelector((state: RootState) => state.cart)
+  console.log({products})
 
   const productsTotalPrice = useSelector(selectProductsTotalPrice)
 
