@@ -1,0 +1,26 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+.grid-item {
+  overflow: hidden;
+  position: relative;
+}
+
+.grid-item.small {
+  grid-row: span 1;
+  grid-column: span 1;
+}
+
+.grid-item.medium {
+  grid-row: span 2;
+  grid-column: span 2;
+}
+
+.grid-item.large {
+  grid-row: span 3;
+  grid-column: span 3;
+}

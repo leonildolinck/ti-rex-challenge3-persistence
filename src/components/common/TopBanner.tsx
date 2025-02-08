@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 interface TopBannerProps {
   title: string;
   links: {
-    label: string; 
+    label: string;
     to: string;
-  }[]; 
+  }[];
 }
 
 const TopBanner: React.FC<TopBannerProps> = ({ title, links }) => {
@@ -23,7 +23,9 @@ const TopBanner: React.FC<TopBannerProps> = ({ title, links }) => {
           alt="Logo"
           className="w-[77px] h-auto"
         />
-        <h1 className="font-poppins text-black text-[48px] font-medium">{title}</h1>
+        <h1 className="font-poppins text-black text-[48px] font-medium">
+          {title}
+        </h1>
         <div className="flex flex-row gap-4 items-center justify-center">
           {links.map((link, index) => (
             <React.Fragment key={index}>

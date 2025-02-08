@@ -1,21 +1,22 @@
 import { useState } from "react";
-import CartModal from "../../store/CartModal";
-
+import CartModal from "../ui/CartModal";
 import { Link } from "react-router-dom";
 import React from "react";
 import { RootState } from "../../redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser, logoutUser } from "../user/actions";
 import { selectProductsCount } from "../cart/cart.selectors";
+import { SignOutButton } from "@clerk/clerk-react";
+import UserProfileV from "../common/UserProfileV";
 
 const Header: React.FC = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const { currentUser } = useSelector((state: RootState) => state.user); // Acesse state.user
-  
+
   const dispatch = useDispatch();
 
-  const productsCount = useSelector(selectProductsCount)
+  const productsCount = useSelector(selectProductsCount);
 
   const handleLoginClick = () => {
     dispatch(loginUser({ name: "usuario", email: "user@text.com" }));
@@ -54,7 +55,7 @@ const Header: React.FC = () => {
               </Link>
             </li>
             <li>
-              <Link to="/about" className="hover:text-gray-400 font-poppins">
+              <Link to="#" className="hover:text-gray-400 font-poppins">
                 About
               </Link>
             </li>
@@ -66,12 +67,14 @@ const Header: React.FC = () => {
           </ul>
         </nav>
         <div className="flex flex-row gap-8 mr-[40px]">
+          <UserProfileV />
+          <SignOutButton />
           {currentUser ? (
             <button onClick={handleLogoutClick}>LOGOUT</button>
           ) : (
             <button onClick={handleLoginClick}>LOGIN</button>
           )}
-          <Link to="/profile">
+          <Link to="/login">
             <img
               src="https://desafio-3.s3.us-east-1.amazonaws.com/profile.svg"
               alt=""
@@ -84,7 +87,7 @@ const Header: React.FC = () => {
               alt=""
             />
           </button>
-          {(productsCount)}
+          {productsCount}
         </div>
         {<CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />}
       </div>

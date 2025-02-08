@@ -1,22 +1,36 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { Splide as OriginalSplide, SplideSlide } from "@splidejs/react-splide";
+import SplideCore from "@splidejs/splide";
 import "@splidejs/splide/dist/css/splide.min.css";
+
+interface SplideOptions {
+  type: string;
+  perPage: number;
+  perMove: number;
+  autoplay: boolean;
+  interval: number;
+  pagination: boolean;
+  arrows: boolean;
+  gap: string;
+  focus: string;
+}
+
+interface CustomSplideProps {
+  options: SplideOptions;
+  children: React.ReactNode;
+}
+
+type SplideRefType = HTMLDivElement & { splide: SplideCore };
+
+const Splide = OriginalSplide as React.ForwardRefExoticComponent<
+  CustomSplideProps & React.RefAttributes<SplideRefType>
+>;
 
 interface Slide {
   image: string;
   number: string;
   title: string;
   description: string;
-}
-
-interface CustomSplideInstance {
-  Components: {
-    Controller: {
-      getIndex(): number;
-    };
-  };
-  on(event: string, callback: () => void): void;
-  off(event: string, callback: () => void): void;
 }
 
 const slides: Slide[] = [
@@ -44,24 +58,37 @@ const slides: Slide[] = [
     number: "04",
     description: "Retro Fancy",
   },
+  {
+    image: "https://desafio-3.s3.us-east-1.amazonaws.com/share-5.png",
+    title: "Dining Table",
+    number: "05",
+    description: "Retro Black",
+  },
 ];
 
 const InspirationSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const splideRef = useRef<{ splide: CustomSplideInstance } | null>(null);
+  const splideRef = useRef<SplideRefType>(null);
 
   useEffect(() => {
-    const splideInstance = splideRef.current?.splide;
-    if (!splideInstance) return;
+    const instance = splideRef.current?.splide;
+    if (!instance) return;
 
-    const handleMove = () => {
-      setActiveIndex(splideInstance.Components.Controller.getIndex());
+    const handleMove = (): void => {
+      const newIndex = instance.Components.Controller.getIndex();
+      console.log("Active Index:", newIndex);
+      setActiveIndex(newIndex);
     };
 
-    splideInstance.on("move", handleMove);
+    (instance.on as unknown as (event: string, callback: () => void) => void)(
+      "move",
+      handleMove
+    );
 
     return () => {
-      splideInstance.off("move", handleMove);
+      (
+        instance.off as unknown as (event: string, callback: () => void) => void
+      )("move", handleMove);
     };
   }, []);
 
@@ -93,12 +120,14 @@ const InspirationSection: React.FC = () => {
           ref={splideRef}
         >
           {slides.map((slide, index) => {
-            const isActive = index === activeIndex % slides.length;
+            const isActive = index === activeIndex;
             return (
               <SplideSlide key={index}>
                 <div
                   className={`relative transition-all duration-300 ${
-                    isActive ? "w-[404px] h-[582px]" : "w-[372px] h-[486px]"
+                    isActive
+                      ? "active-slide w-[404px] h-[582px]"
+                      : "inactive-slide w-[372px] h-[486px]"
                   }`}
                 >
                   <img
@@ -106,8 +135,8 @@ const InspirationSection: React.FC = () => {
                     src={slide.image}
                     alt={slide.title}
                   />
-                  {isActive && (
-                    <div className=" absolute left-6 bottom-6 flex flex-row justify-end items-end">
+                  {isActive ? (
+                    <div className="absolute left-6 bottom-6 flex flex-row justify-end items-end">
                       <div className="flex flex-col bg-white bg-opacity-70 w-[217px] h-[130px] items-center justify-center">
                         <h3 className="mb-2">
                           {slide.number} ⸺ {slide.title}
@@ -120,6 +149,8 @@ const InspirationSection: React.FC = () => {
                         &rarr;
                       </button>
                     </div>
+                  ) : (
+                    <div className="invisible"></div>
                   )}
                 </div>
               </SplideSlide>

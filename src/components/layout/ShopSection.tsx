@@ -7,7 +7,11 @@ import Product from "../../services/ProductInterface";
 
 const ShopSection: React.FC = () => {
   const [visibleRows, setVisibleRows] = useState(4);
-  const [filters, setFilters] = useState({ name: "", minPrice: "", maxPrice: "" });
+  const [filters, setFilters] = useState({
+    name: "",
+    minPrice: "",
+    maxPrice: "",
+  });
   const [sortBy, setSortBy] = useState<"name" | "price">("name");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -31,9 +35,15 @@ const ShopSection: React.FC = () => {
   const filteredProducts = (data: Product[]) => {
     return data
       .filter((product) => {
-        const matchesName = product.name.toLowerCase().includes(filters.name.toLowerCase());
-        const matchesMinPrice = filters.minPrice ? product.actual_price >= parseFloat(filters.minPrice) : true;
-        const matchesMaxPrice = filters.maxPrice ? product.actual_price <= parseFloat(filters.maxPrice) : true;
+        const matchesName = product.name
+          .toLowerCase()
+          .includes(filters.name.toLowerCase());
+        const matchesMinPrice = filters.minPrice
+          ? product.actual_price >= parseFloat(filters.minPrice)
+          : true;
+        const matchesMaxPrice = filters.maxPrice
+          ? product.actual_price <= parseFloat(filters.maxPrice)
+          : true;
         return matchesName && matchesMinPrice && matchesMaxPrice;
       })
       .sort((a, b) => {
@@ -46,18 +56,26 @@ const ShopSection: React.FC = () => {
   return (
     <div>
       <div className="flex flex-row justify-between bg-[#FAF3EA] min-h-[100px] items-center">
-        {/* Filtro e botão de modal */}
         <div className="flex items-center w-full px-28 gap-12">
-          <button onClick={() => setIsModalOpen(true)} >
-            <img src="https://desafio-3.s3.us-east-1.amazonaws.com/filter.svg" alt="" />
-          </button >
+          <button onClick={() => setIsModalOpen(true)}>
+            <img
+              src="https://desafio-3.s3.us-east-1.amazonaws.com/filter.svg"
+              alt=""
+            />
+          </button>
           <p className="font-semibold">Filter</p>
-          <button onClick={() => setIsModalOpen(true)} >
-            <img src="https://desafio-3.s3.us-east-1.amazonaws.com/grid.svg" alt="" />
-          </button >
-          <button onClick={() => setIsModalOpen(true)} >
-            <img src="https://desafio-3.s3.us-east-1.amazonaws.com/list.svg" alt="" />
-          </button >
+          <button onClick={() => setIsModalOpen(true)}>
+            <img
+              src="https://desafio-3.s3.us-east-1.amazonaws.com/grid.svg"
+              alt=""
+            />
+          </button>
+          <button onClick={() => setIsModalOpen(true)}>
+            <img
+              src="https://desafio-3.s3.us-east-1.amazonaws.com/list.svg"
+              alt=""
+            />
+          </button>
           <img
             src="https://desafio-3.s3.us-east-1.amazonaws.com/barra.svg"
             alt="separator"
@@ -71,7 +89,6 @@ const ShopSection: React.FC = () => {
           <p>Default</p>
         </div>
       </div>
-
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 font-poppins">
@@ -108,7 +125,7 @@ const ShopSection: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-            <h3 className="text-xl font-bold mb-4">Sort</h3>
+              <h3 className="text-xl font-bold mb-4">Sort</h3>
               <select
                 onChange={handleSortChange}
                 value={sortBy}
@@ -151,7 +168,10 @@ const ShopSection: React.FC = () => {
 
           return (
             <>
-              <ProductsGrid products={productsToShow} onAddToCart={handleAddToCart} />
+              <ProductsGrid
+                products={productsToShow}
+                onAddToCart={handleAddToCart}
+              />
 
               {canShowMore && (
                 <div className="text-center mt-6">

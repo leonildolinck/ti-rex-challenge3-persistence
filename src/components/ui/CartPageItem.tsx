@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { removeProductFromCart, increaseQuantity, decreaseQuantity } from "../components/cart/slice";
+import { removeProductFromCart, increaseQuantity, decreaseQuantity } from "../cart/slice";
 
 
 interface Product {

@@ -15,9 +15,7 @@ import {
 import Button from "../components/common/Button";
 import ProductsGrid from "../components/common/ProductsGrid";
 import ApiFetcher from "../services/ApiFetcher";
-import Product from "../services/ProductInterface"
-
-
+import Product from "../services/ProductInterface";
 
 const SingleProduct: React.FC = () => {
   const { id } = useParams();
@@ -33,7 +31,6 @@ const SingleProduct: React.FC = () => {
   const handleAddToCart = (product: Product) => {
     console.log("add logica carrinho abaixo", product);
   };
-
 
   const shareUrl = "http://localhost/produto/1";
   const title = "Look this amazing furniture!";
@@ -68,7 +65,10 @@ const SingleProduct: React.FC = () => {
     <>
       <Header />
       <div className="flex w-full h-[100px] bg-[#F9F1E7] items-center gap-[27px]">
-        <Link to="/home" className="hover:text-gray-400 font-poppins ml-[100px]">
+        <Link
+          to="/home"
+          className="hover:text-gray-400 font-poppins ml-[100px]"
+        >
           Home
         </Link>
         <img
@@ -102,8 +102,7 @@ const SingleProduct: React.FC = () => {
             <div className="flex flex-col p-4 gap-2">
               <h2 className="text-[40px] font-semibold">{product.name}</h2>
               <p className="text-[24px] font-medium text-[#9F9F9F]">
-                R${" "}
-                {new Intl.NumberFormat("pt-BR").format(product.actual_price)}
+                R$ {new Intl.NumberFormat("pt-BR").format(product.actual_price)}
               </p>
               <div className="flex flex-row items-center gap-4">
                 <StarRating rating={3} />
@@ -253,7 +252,7 @@ const SingleProduct: React.FC = () => {
       />
       <hr className="my-8 p-4 border-t border-[#D9D9D9]" />
 
-      <Footer />      
+      <Footer />
     </>
   );
 };

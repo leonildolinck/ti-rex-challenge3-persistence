@@ -1,0 +1,87 @@
+.splide__pagination {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.splide__pagination__page {
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 0px solid #d1d5db;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.splide__pagination__page::before {
+  content: "";
+  display: block;
+  width: 11px;
+  height: 11px;
+  background-color: #d1d5db;
+  border-radius: 50%;
+}
+
+.splide__pagination__page.is-active {
+  background-color: transparent;
+  border-color: #b88e2f;
+  border: 1px solid #b88e2f;
+}
+
+.splide__pagination__page.is-active::before {
+  background-color: #b88e2f;
+}
+
+.splide__pagination {
+  left: 520px;
+}
+
+.splide__arrow {
+  background-color: #ffffff; 
+  color: #b88e2f; 
+  border-radius: 50%; 
+  width: 48px;
+  height: 48px;
+  transition: all 0.3s ease;
+}
+
+.splide__arrow:hover {
+  background-color: #ffffff; 
+  color: #ffd700;
+}
+
+.splide__arrow--prev {
+  left: -20px; 
+}
+
+.splide__arrow--next {
+  right: -20px; 
+}
+
+.splide__arrow svg {
+  fill: #b88e2f; 
+  transition: fill 0.3s ease;
+}
+
+
+.splide__slide {
+  position: relative; /* Garante que os slides sejam posicionados corretamente */
+}
+
+.active-slide {
+  z-index: 10; /* Garante que o slide ativo fique acima dos outros */
+  transform: scale(1.05); /* Aumenta ligeiramente o slide ativo */
+  transition: all 0.3s ease; /* Transição suave */
+}
+
+.inactive-slide {
+  z-index: 1; /* Z-index menor para slides inativos */
+  opacity: 0.7; /* Diminui a opacidade dos slides inativos */
+  transition: all 0.3s ease; /* Transição suave */
+}

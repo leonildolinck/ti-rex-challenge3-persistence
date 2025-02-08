@@ -7,14 +7,17 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { ClerkProvider } from "@clerk/clerk-react";
 
+
+
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <ClerkProvider publishableKey="pk_test_bGl2ZS1ib3hlci04Ni5jbGVyay5hY2NvdW50cy5kZXYk">
+  /*<React.StrictMode>*/
+    <ClerkProvider publishableKey="pk_test_bGl2ZS1ib3hlci04Ni5jbGVyay5hY2NvdW50cy5kZXYk">
+      <Provider store={store}>
+        <BrowserRouter>
           <App />
-        </ClerkProvider>
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>
+        </BrowserRouter>
+      </Provider>
+    </ClerkProvider>
+  /*</React.StrictMode>*/
 );

@@ -5,8 +5,6 @@ import Button from "../common/Button";
 import ProductsGrid from "../common/ProductsGrid";
 import Product from "../../services/ProductInterface";
 
-
-
 const ProductsSection: React.FC = () => {
   const [visibleRows, setVisibleRows] = useState(2);
 
@@ -33,7 +31,10 @@ const ProductsSection: React.FC = () => {
 
           return (
             <>
-              <ProductsGrid products={productsToShow} onAddToCart={handleAddToCart} />
+              <ProductsGrid
+                products={productsToShow}
+                onAddToCart={handleAddToCart}
+              />
 
               {canShowMore && (
                 <div className="text-center mt-6">

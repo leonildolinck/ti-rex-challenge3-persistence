@@ -4,7 +4,6 @@ import Product from "../../services/ProductInterface";
 import { useDispatch } from "react-redux";
 import { addProductToCart } from "../cart/slice";
 
-
 interface ProductCardProps {
   product: Product;
   onAddToCart: () => void;
@@ -17,12 +16,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       ? Math.round(((oldPrice - actualPrice) / oldPrice) * 100)
       : null;
 
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleProductClick = () => {
-    dispatch(addProductToCart(product))
-  }
+    dispatch(addProductToCart(product));
+  };
 
   return (
     <div className="relative bg-[#F4F5F7] overflow-hidden w-[285px]">

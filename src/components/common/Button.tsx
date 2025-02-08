@@ -27,7 +27,7 @@ const BUTTON_KINDS: Record<ButtonProps["kind"], string> = {
   create:
     "bg-[#22C55E] text-white rounded-[8px] border border-[#22C55E] hover:bg-[#5CB77D]",
   modal:
-    "flex border border-[#000000] rounded-[50px] h-[30px] items-center justify-center px-6"
+    "flex border border-[#000000] rounded-[50px] h-[30px] items-center justify-center px-6",
 };
 
 const BUTTON_SIZES: Record<

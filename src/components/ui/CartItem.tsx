@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { removeProductFromCart } from "../components/cart/slice";
+import { removeProductFromCart } from "../cart/slice";
 
 interface Product {
   id: string;
@@ -14,7 +14,7 @@ interface CartItemProps {
   product: Product;
 }
 
-const CartList: React.FC<CartItemProps> = ({ product }) => {
+const CartItem: React.FC<CartItemProps> = ({ product }) => {
   const dispatch = useDispatch();
 
   const handleRemoveClick = () => {
@@ -44,4 +44,4 @@ const CartList: React.FC<CartItemProps> = ({ product }) => {
   );
 };
 
-export default CartList;
+export default CartItem;
