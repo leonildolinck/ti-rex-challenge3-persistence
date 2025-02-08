@@ -1,11 +1,11 @@
 import React from "react";
-import Form from "../common/Form";
 import PlaceOrder from "../common/PlaceOrder";
+import CheckoutForm from "../common/CheckoutForm";
 
 const CheckoutSection: React.FC = () => {
   return (
     <div className="flex flex-row">
-      <Form />
+      <CheckoutForm />
       <PlaceOrder />
     </div>
   );

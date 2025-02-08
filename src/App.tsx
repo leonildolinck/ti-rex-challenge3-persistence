@@ -11,12 +11,13 @@ import Register from "./pages/Register";
 import ProtectedLayout from "./components/layout/ProtectedLayout";
 import UserSync from "./hooks/UserSync";
 import AuthCallback from "./services/AuthCallback";
+import NotFound from "./pages/NotFound";
 
 
 const App: React.FC = () => {
   
   return (
-    <div>
+    <body>
       <UserSync />
       <Routes>
 
@@ -35,9 +36,9 @@ const App: React.FC = () => {
           <Route path="/checkout" element={<Checkout />} />
         </Route>
 
-        {/* <Route path="/*" element={<NotFoundPage />} /> */}
+        <Route path="/*" element={<NotFound />} />
       </Routes>
-    </div>
+    </body>
   );
 };
 

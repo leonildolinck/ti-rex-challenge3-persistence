@@ -14,7 +14,7 @@ const LoginSection: React.FC = () => {
 
   useEffect(() => {
     if (isSignedIn) {
-      navigate("/profile");
+      navigate("/cart");
     }
   }, [isSignedIn, navigate]);
 

@@ -8,11 +8,16 @@ import { loginUser, logoutUser } from "../user/actions";
 import { selectProductsCount } from "../cart/cart.selectors";
 import { SignOutButton } from "@clerk/clerk-react";
 import UserProfileV from "../common/UserProfileV";
+import { useUser } from "@clerk/clerk-react";
+import ProfileModal from "../ui/ProfileModal";
 
 const Header: React.FC = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  const { currentUser } = useSelector((state: RootState) => state.user); // Acesse state.user
+  const { isSignedIn } = useUser();
+
+  const { currentUser } = useSelector((state: RootState) => state.user);
 
   const dispatch = useDispatch();
 
@@ -74,12 +79,24 @@ const Header: React.FC = () => {
           ) : (
             <button onClick={handleLoginClick}>LOGIN</button>
           )}
-          <Link to="/login">
-            <img
-              src="https://desafio-3.s3.us-east-1.amazonaws.com/profile.svg"
-              alt=""
-            />
-          </Link>
+
+          {!isSignedIn ? (
+            <Link to="/login">
+              <button>
+                <img
+                  src="https://desafio-3.s3.us-east-1.amazonaws.com/profile.svg"
+                  alt=""
+                />
+              </button>
+            </Link>
+          ) : (
+            <button onClick={() => setIsProfileOpen(true)}>
+              <img
+                src="https://desafio-3.s3.us-east-1.amazonaws.com/profile.svg"
+                alt=""
+              />
+            </button>
+          )}
 
           <button onClick={() => setIsCartOpen(true)}>
             <img
@@ -90,6 +107,12 @@ const Header: React.FC = () => {
           {productsCount}
         </div>
         {<CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />}
+        {
+          <ProfileModal
+            isOpen={isProfileOpen}
+            onClose={() => setIsProfileOpen(false)}
+          />
+        }
       </div>
     </header>
   );

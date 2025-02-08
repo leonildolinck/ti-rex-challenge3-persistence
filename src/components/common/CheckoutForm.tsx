@@ -1,6 +1,6 @@
 import React from "react";
 
-const Form: React.FC = () => {
+const CheckoutForm: React.FC = () => {
   return (
     <div className="bg-white p-10 border border-gray-300 rounded-md w-1/2 font-poppins">
       <h1 className="font-bold text-[36px] mb-4">Billing Details</h1>
@@ -119,4 +119,4 @@ const Form: React.FC = () => {
   );
 };
 
-export default Form;
+export default CheckoutForm;
