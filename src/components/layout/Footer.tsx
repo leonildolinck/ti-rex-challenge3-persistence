@@ -1,7 +1,30 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Footer: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [subscribed, setSubscribed] = useState<boolean>(false);
+
+  const handleSubscribe = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email) {
+      setError("Email is required");
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      setError("Insert a valid e-mail.");
+      return;
+    }
+
+    setError("");
+    console.log("emailenviado ", email);
+    setSubscribed(true);
+  };
+
   return (
     <footer className="p-20 font-poppins">
       <div className="flex flex-row justify-between gap-20">
@@ -88,15 +111,34 @@ const Footer: React.FC = () => {
           <a href="#"> Privacy Policies</a>
         </div>
         <div>
-          <p className="text-[#9F9F9F] mb-12">Newsletter</p>
-          <input
-            type="email"
-            placeholder="Enter Your Email Addresss"
-            className="border-b w-[200px] mr-2 text-[14px] border-black"
-          />
-          <button className="font-medium border-b border-black text-[14px]">
-            Subscribe
-          </button>
+          {subscribed ? (
+            <p className="text-[#9F9F9F] text-lg font-medium">
+              Thanks for subscribing!
+            </p>
+          ) : (
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-row gap-2">
+                <input
+                  type="email"
+                  placeholder="Enter Your Email Address"
+                  className={`border-b w-[200px] text-[14px] border-black ${
+                    error ? "border-red-500" : ""
+                  }`}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <button
+                  className="font-medium border-b border-black text-[14px] hover:bg-gray-100"
+                  onClick={handleSubscribe}
+                >
+                  Subscribe
+                </button>
+              </div>
+              {error && (
+                <p className="text-red-500 text-[12px] mt-1">{error}</p>
+              )}
+            </div>
+          )}
         </div>
       </div>
 

@@ -13,7 +13,6 @@ interface CartModalProps {
 
 const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
   const { products } = useSelector((state: RootState) => state.cart);
-  console.log({ products });
 
   const productsTotalPrice = useSelector(selectProductsTotalPrice);
 

@@ -2,12 +2,6 @@ import { useState } from "react";
 import CartModal from "../ui/CartModal";
 import { Link } from "react-router-dom";
 import React from "react";
-import { RootState } from "../../redux/store";
-import { useSelector, useDispatch } from "react-redux";
-import { loginUser, logoutUser } from "../user/actions";
-import { selectProductsCount } from "../cart/cart.selectors";
-import { SignOutButton } from "@clerk/clerk-react";
-import UserProfileV from "../common/UserProfileV";
 import { useUser } from "@clerk/clerk-react";
 import ProfileModal from "../ui/ProfileModal";
 
@@ -16,20 +10,6 @@ const Header: React.FC = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const { isSignedIn } = useUser();
-
-  const { currentUser } = useSelector((state: RootState) => state.user);
-
-  const dispatch = useDispatch();
-
-  const productsCount = useSelector(selectProductsCount);
-
-  const handleLoginClick = () => {
-    dispatch(loginUser({ name: "usuario", email: "user@text.com" }));
-  };
-
-  const handleLogoutClick = () => {
-    dispatch(logoutUser());
-  };
 
   return (
     <header className="p-7">
@@ -71,15 +51,7 @@ const Header: React.FC = () => {
             </li>
           </ul>
         </nav>
-        <div className="flex flex-row gap-8 mr-[40px]">
-          <UserProfileV />
-          <SignOutButton />
-          {currentUser ? (
-            <button onClick={handleLogoutClick}>LOGOUT</button>
-          ) : (
-            <button onClick={handleLoginClick}>LOGIN</button>
-          )}
-
+        <div className="flex flex-row gap-8 mr-[40px] items-center justify-center">
           {!isSignedIn ? (
             <Link to="/login">
               <button>
@@ -98,13 +70,14 @@ const Header: React.FC = () => {
             </button>
           )}
 
-          <button onClick={() => setIsCartOpen(true)}>
-            <img
-              src="https://desafio-3.s3.us-east-1.amazonaws.com/cart.svg"
-              alt=""
-            />
-          </button>
-          {productsCount}
+          <div>
+            <button onClick={() => setIsCartOpen(true)}>
+              <img
+                src="https://desafio-3.s3.us-east-1.amazonaws.com/cart.svg"
+                alt=""
+              />
+            </button>
+          </div>
         </div>
         {<CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />}
         {

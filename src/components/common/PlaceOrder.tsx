@@ -1,9 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectProductsTotalPrice } from "../cart/cart.selectors";
+import { useUser } from "@clerk/clerk-react";
+import { RootState } from "../../redux/store";
 
-const PlaceOrder: React.FC = () => {
+interface CheckoutFormProps {
+  formData: {
+    zipCode: string;
+    streetAddress: string;
+    province: string;
+    townCity: string;
+    country: string;
+    addOnAddress: string;
+    additionalInfo: string;
+  };
+}
+
+const PlaceOrder: React.FC<CheckoutFormProps> = ({ formData }) => {
+  const { user } = useUser();
+  const email = user.emailAddresses?.[0]?.emailAddress || "Not available";
   const productsTotalPrice = useSelector(selectProductsTotalPrice);
+  const { products } = useSelector((state: RootState) => state.cart);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const cartItems = products.map((product) => ({
+    name: product.name,
+    price: product.actual_price,
+    quantity: product.quantity,
+  }));
+
+  const handlePlaceOrder = async () => {
+    const orderData = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: email,
+      zipCode: formData.zipCode,
+      streetAddress: formData.streetAddress,
+      province: formData.province,
+      townCity: formData.townCity,
+      country: formData.country,
+      addOnAddress: formData.addOnAddress,
+      additionalInfo: formData.additionalInfo,
+      cartItems: cartItems,
+      totalPrice: productsTotalPrice,
+    };
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(
+        "http://ec2-34-239-122-225.compute-1.amazonaws.com:3000/invoices",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(orderData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to place order");
+      }
+
+      alert("Order placed successfully!");
+    } catch (err) {
+      console.log(err instanceof Error ? err.message : "Unknown error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="w-[608px] h-[789px] bg-white mx-auto mt-[50px]">
@@ -81,8 +145,12 @@ const PlaceOrder: React.FC = () => {
       </div>
 
       <div className="w-[318px] h-[64px] border border-black rounded-[15px] mx-auto mt-[50px] flex items-center justify-center">
-        <button className="text-[20px] font-normal text-black">
-          Place Order
+        <button
+          className="text-[20px] font-normal text-black"
+          onClick={handlePlaceOrder}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Placing Order..." : "Place Order"}
         </button>
       </div>
     </div>

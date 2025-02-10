@@ -1,6 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
+
+type FormErrors = {
+  name?: string;
+  email?: string;
+  message?: string;
+};
 
 const ContactSection: React.FC = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+
+  const [errors, setErrors] = useState<FormErrors>({});
+
+  const validateForm = () => {
+    const newErrors: FormErrors = {};
+
+    if (!/^[a-zA-Z]{2,}/.test(name)) {
+      newErrors.name = "Name must have at least 2 letters.";
+    }
+
+    if (!/^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+
+    if (message.trim().length < 50) {
+      newErrors.message = "Message must have at least 50 characters.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      console.log("Form submitted successfully:", {
+        name,
+        email,
+        subject,
+        message,
+      });
+      setName("");
+      setEmail("");
+      setSubject("");
+      setMessage("");
+      setErrors({});
+      alert("Form submitted successfully!");
+    }
+  };
+
   return (
     <section className="flex flex-col bg-white pb-[68px] pt-[68px]">
       <div className="text-center top-[514px] left-0 right-0">
@@ -22,7 +73,7 @@ const ContactSection: React.FC = () => {
               alt=""
               className="h-[22px] w-[22px]"
             />
-            <div className="">
+            <div>
               <h3 className="text-[24px] font-medium text-black mb-2">
                 Address
               </h3>
@@ -37,7 +88,7 @@ const ContactSection: React.FC = () => {
               alt=""
               className="h-[22px] w-[22px]"
             />
-            <div className="">
+            <div>
               <h3 className="text-lg font-medium text-black mb-2">Phone</h3>
               <p className="text-gray-600 text-sm">Mobile: +(84) 546-6789</p>
               <p className="text-gray-600 text-sm">Hotline: +(84) 456-6789</p>
@@ -49,7 +100,7 @@ const ContactSection: React.FC = () => {
               alt=""
               className="h-[22px] w-[22px]"
             />
-            <div className="">
+            <div>
               <h3 className="text-lg font-medium text-black mb-2">
                 Working Time
               </h3>
@@ -60,8 +111,11 @@ const ContactSection: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white mt-[130px] p-8">
-          <div className="flex flex-col mb-8 gap-4">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white mt-[130px] p-8 flex flex-col gap-6"
+        >
+          <div className="flex flex-col mb-4">
             <label htmlFor="name" className="block font-medium text-black">
               Your Name
             </label>
@@ -69,10 +123,18 @@ const ContactSection: React.FC = () => {
               type="text"
               id="name"
               placeholder="Abc"
-              className="w-[528px] mt-2 p-6 border border-gray-300 rounded-lg"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className={`w-[528px] mt-2 p-6 border rounded-lg ${
+                errors.name ? "border-red-500" : "border-gray-300"
+              }`}
             />
+            {errors.name && (
+              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+            )}
           </div>
-          <div className="flex flex-col mb-8 gap-4">
+
+          <div className="flex flex-col mb-4">
             <label htmlFor="email" className="block font-medium text-black">
               Email Address
             </label>
@@ -80,10 +142,18 @@ const ContactSection: React.FC = () => {
               type="email"
               id="email"
               placeholder="Abc@def.com"
-              className="w-full mt-2 p-6 border border-[#9F9F9F] rounded-lg text-[16px]"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={`w-full mt-2 p-6 border rounded-lg ${
+                errors.email ? "border-red-500" : "border-[#9F9F9F]"
+              }`}
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
           </div>
-          <div className="flex flex-col mb-8 gap-4">
+
+          <div className="flex flex-col mb-4">
             <label htmlFor="subject" className="block font-medium text-black">
               Subject
             </label>
@@ -91,10 +161,13 @@ const ContactSection: React.FC = () => {
               type="text"
               id="subject"
               placeholder="This is optional"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
               className="w-full mt-2 p-6 border border-[#9F9F9F] rounded-lg text-[16px]"
             />
           </div>
-          <div className="flex flex-col mb-8 gap-4">
+
+          <div className="flex flex-col mb-4">
             <label htmlFor="message" className="block font-medium text-black">
               Message
             </label>
@@ -102,18 +175,24 @@ const ContactSection: React.FC = () => {
               id="message"
               placeholder="Hi! I’d like to ask about"
               rows={4}
-              className="w-full mt-2 p-6 border border-[#9F9F9F] rounded-lg text-[16px]"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className={`w-full mt-2 p-6 border rounded-lg ${
+                errors.message ? "border-red-500" : "border-[#9F9F9F]"
+              }`}
             ></textarea>
+            {errors.message && (
+              <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+            )}
           </div>
-          <div className="">
-            <button
-              type="submit"
-              className="bg-[#B88E2F] w-[237px] h-[55px] text-white font-medium py-2 px-6 rounded-lg text-[16px] mt-[50px]"
-            >
-              Submit
-            </button>
-          </div>
-        </div>
+
+          <button
+            type="submit"
+            className="bg-[#B88E2F] w-[237px] h-[55px] text-white font-medium py-2 px-6 rounded-lg text-[16px] mt-[20px]"
+          >
+            Submit
+          </button>
+        </form>
       </div>
     </section>
   );
