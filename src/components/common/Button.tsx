@@ -11,7 +11,7 @@ interface ButtonProps {
     | "outlineblack"
     | "create"
     | "modal";
-  size?: "sm" | "sm-login" | "md" | "lg" | "full";
+  size?: "xs" | "sm" | "smlogin" | "md" | "lg" | "full";
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -35,22 +35,25 @@ const BUTTON_SIZES: Record<
   Record<NonNullable<ButtonProps["size"]>, string>
 > = {
   mobile: {
+    xs: "w-[120px]",
     sm: "w-[205px]",
-    "sm-login": "w-[105px]",
+    smlogin: "w-[105px]",
     md: "w-[287px]",
     lg: "w-full",
     full: "w-full",
   },
   tablet: {
+    xs: "w-[120px]",
     sm: "w-[240px]",
-    "sm-login": "w-[162px]",
+    smlogin: "w-[162px]",
     md: "w-[410px]",
     lg: "w-[489px]",
     full: "w-full",
   },
   desktop: {
+    xs: "w-[120px]",
     sm: "w-[240px]",
-    "sm-login": "w-[240px]",
+    smlogin: "w-[240px]",
     md: "w-[410px]",
     lg: "w-[222px]",
     full: "w-full",

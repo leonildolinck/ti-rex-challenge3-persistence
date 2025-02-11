@@ -1,6 +1,7 @@
 @import url('./splider.css');
 @import url('./grid.css');
 @import url('./star.css');
+@import url('./slide.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

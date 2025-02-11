@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSignIn, useAuth } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 import Button from "../common/Button";
+import { Link } from "react-router-dom";
 
 const LoginSection: React.FC = () => {
   const { signIn, isLoaded: isSignInLoaded } = useSignIn();
@@ -110,6 +111,10 @@ const LoginSection: React.FC = () => {
               label="Log In"
             />
           </div>
+          <p className="text-center mt-4">Don't have an account? Try 
+            <Link to="/register" className="text-blue-500 hover:text-blue-700"> Sign Up</Link>
+          </p>
+
 
           <div className="flex justify-center mt-4 gap-4">
             <button

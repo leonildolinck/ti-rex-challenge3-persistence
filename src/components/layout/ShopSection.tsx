@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ApiFetcher from "../../services/ApiFetcher";
 import LoadingSpinner from "../common/LoadingSpinner";
 import Button from "../common/Button";
 import ProductsGrid from "../common/ProductsGrid";
 import Product from "../../services/ProductInterface";
+import Pagination from "../common/Pagination";
 
 const ShopSection: React.FC = () => {
-  const [visibleRows, setVisibleRows] = useState(4);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+
   const [filters, setFilters] = useState({
     name: "",
     minPrice: "",
@@ -15,25 +20,21 @@ const ShopSection: React.FC = () => {
   const [sortBy, setSortBy] = useState<"name" | "price">("name");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleShowMore = () => {
-    setVisibleRows((prev) => prev + 1);
-  };
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(0);
+  const [processedData, setProcessedData] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
 
-  const handleAddToCart = (product: Product) => {
-    console.log("Adicionar ao carrinho:", product);
-  };
+  useEffect(() => {
+    if (allProducts.length > 0) {
+      const allPrices = allProducts.map((product) => product.actual_price);
+      setMinPrice(Math.min(...allPrices));
+      setMaxPrice(Math.max(...allPrices));
+    }
+  }, [allProducts]);
 
-  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFilters((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortBy(e.target.value as "name" | "price");
-  };
-
-  const filteredProducts = (data: Product[]) => {
-    return data
+  useEffect(() => {
+    const filtered = allProducts
       .filter((product) => {
         const matchesName = product.name
           .toLowerCase()
@@ -52,108 +53,132 @@ const ShopSection: React.FC = () => {
         }
         return a.actual_price - b.actual_price;
       });
+
+    setProcessedData(filtered);
+  }, [filters, sortBy, allProducts]);
+
+  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({ ...prev, [name]: value }));
   };
+
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortBy(e.target.value as "name" | "price");
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div>
       <div className="flex flex-row justify-between bg-[#FAF3EA] min-h-[100px] items-center">
         <div className="flex items-center w-full px-28 gap-12">
-          <button onClick={() => setIsModalOpen(true)}>
-            <img
-              src="https://desafio-3.s3.us-east-1.amazonaws.com/filter.svg"
-              alt=""
-            />
-          </button>
+          <div className="relative">
+            <button onClick={() => setIsModalOpen(true)}>
+              <img
+                src="https://desafio-3.s3.us-east-1.amazonaws.com/filter.svg"
+                alt=""
+              />
+            </button>
+            {isModalOpen && (
+              <div className="absolute top-1 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 font-poppins">
+                <div className="flex flex-col bg-white p-4 gap-4">
+                  <h3 className="text-xl font-bold mb-2">Filter</h3>
+                  <div className="">
+                    <label className="block">Name:</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={filters.name}
+                      onChange={handleFilterChange}
+                      className="w-full p-2 border rounded"
+                    />
+                  </div>
+                  <div className="">
+                    <label className="block">
+                      Min Price: {filters.minPrice}
+                    </label>
+                    <input
+                      type="range"
+                      name="minPrice"
+                      min={minPrice}
+                      max={maxPrice}
+                      step="10"
+                      value={filters.minPrice}
+                      onChange={handleFilterChange}
+                      className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block">
+                      Max Price: {filters.maxPrice}
+                    </label>
+                    <input
+                      type="range"
+                      name="maxPrice"
+                      min={minPrice}
+                      max={maxPrice}
+                      step="10"
+                      value={filters.maxPrice}
+                      onChange={handleFilterChange}
+                      className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <h3 className="text-xl font-bold mb-4">Sort</h3>
+                    <select
+                      onChange={handleSortChange}
+                      value={sortBy}
+                      className="w-full p-2 border rounded bg-white"
+                    >
+                      <option value="name">Name</option>
+                      <option value="price">Price</option>
+                    </select>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <Button
+                      onClick={() => setIsModalOpen(false)}
+                      label="Close"
+                      type="button"
+                      kind="outlineblack"
+                      size="xs"
+                    />
+                    <Button
+                      onClick={() => setIsModalOpen(false)}
+                      label="Apply"
+                      type="button"
+                      kind="outlineblack"
+                      size="xs"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
           <p className="font-semibold">Filter</p>
-          <button onClick={() => setIsModalOpen(true)}>
+          <button onClick={() => setViewMode("grid")}>
             <img
               src="https://desafio-3.s3.us-east-1.amazonaws.com/grid.svg"
-              alt=""
+              alt="Grid View"
             />
           </button>
-          <button onClick={() => setIsModalOpen(true)}>
+          <button onClick={() => setViewMode("list")}>
             <img
               src="https://desafio-3.s3.us-east-1.amazonaws.com/list.svg"
-              alt=""
+              alt="List View"
             />
           </button>
+
           <img
             src="https://desafio-3.s3.us-east-1.amazonaws.com/barra.svg"
             alt="separator"
           />
-          <p>Showing 1-16 of 32 results</p>
-        </div>
-        <div className="flex items-center justify-center px-20">
-          <p>Show</p>
-          <p>16</p>
-          <p>Sort by</p>
-          <p>Default</p>
+          <p>
+            Showing {itemsPerPage} of {processedData.length} results
+          </p>
         </div>
       </div>
-
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 font-poppins">
-          <div className="flex flex-col bg-white p-6 w-1/3 gap-10">
-            <h3 className="text-xl font-bold mb-4">Filter</h3>
-            <div className="mb-4">
-              <label className="block">Name:</label>
-              <input
-                type="text"
-                name="name"
-                value={filters.name}
-                onChange={handleFilterChange}
-                className="w-full p-2 border rounded"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block">Min Price:</label>
-              <input
-                type="number"
-                name="minPrice"
-                value={filters.minPrice}
-                onChange={handleFilterChange}
-                className="w-full p-2 border rounded"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block">Max Price:</label>
-              <input
-                type="number"
-                name="maxPrice"
-                value={filters.maxPrice}
-                onChange={handleFilterChange}
-                className="w-full p-2 border rounded"
-              />
-            </div>
-            <div className="mb-4">
-              <h3 className="text-xl font-bold mb-4">Sort</h3>
-              <select
-                onChange={handleSortChange}
-                value={sortBy}
-                className="w-full p-2 border rounded bg-white"
-              >
-                <option value="name">Name</option>
-                <option value="price">Price</option>
-              </select>
-            </div>
-            <div className="flex justify-between">
-              <Button
-                onClick={() => setIsModalOpen(false)}
-                label="Close"
-                type="button"
-                kind="outlineblack"
-                size="sm"
-              />
-              <Button
-                onClick={() => setIsModalOpen(false)}
-                label="Apply"
-                type="button"
-                kind="outlineblack"
-                size="sm"
-              />
-            </div>
-          </div>
-        </div>
-      )}
 
       <ApiFetcher
         url="http://ec2-34-239-122-225.compute-1.amazonaws.com:3000/products"
@@ -162,28 +187,25 @@ const ShopSection: React.FC = () => {
           if (error) return <p>Erro: {error}</p>;
           if (!data || data.length === 0) return <p>No products</p>;
 
-          const filteredData = filteredProducts(data);
-          const productsToShow = filteredData.slice(0, visibleRows * 4);
-          const canShowMore = filteredData.length > productsToShow.length;
+          setAllProducts(data);
+
+          const startIndex = (currentPage - 1) * itemsPerPage;
+          const endIndex = startIndex + itemsPerPage;
+          const productsToShow = processedData.slice(startIndex, endIndex);
 
           return (
             <>
               <ProductsGrid
                 products={productsToShow}
-                onAddToCart={handleAddToCart}
+                onAddToCart={(product) => console.log("Add to cart", product)}
+                viewMode={viewMode}
               />
-
-              {canShowMore && (
-                <div className="text-center mt-6">
-                  <Button
-                    onClick={handleShowMore}
-                    label="Show More"
-                    type="button"
-                    kind="outline"
-                    size="lg"
-                  />
-                </div>
-              )}
+              <Pagination
+                totalItems={processedData.length}
+                itemsPerPage={itemsPerPage}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+              />
             </>
           );
         }}

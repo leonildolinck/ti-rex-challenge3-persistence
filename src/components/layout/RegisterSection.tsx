@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSignUp } from "@clerk/clerk-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const RegisterSection: React.FC = () => {
   const { signUp } = useSignUp();
@@ -174,6 +174,10 @@ const RegisterSection: React.FC = () => {
                   Sign Up
                 </button>
               </div>
+              <p className="text-center mt-4">Already have an account? Try 
+            <Link to="/login" className="text-blue-500 hover:text-blue-700"> Sign In</Link>
+          </p>
+              
             </form>
           )}
         </div>
