@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import ApiFetcher from "../../services/ApiFetcher";
-import LoadingSpinner from "../common/LoadingSpinner";
-import Button from "../common/Button";
-import ProductsGrid from "../common/ProductsGrid";
-import Product from "../../services/ProductInterface";
+import ApiFetcher from "../../../services/ApiFetcher";
+import LoadingSpinner from "../../common/LoadingSpinner";
+import Product from "../../../services/ProductInterface";
+import Button from "../../common/Button";
+import ProductsGrid from "../../common/ProductsGrid";
 
 const ProductsSection: React.FC = () => {
   const [visibleRows, setVisibleRows] = useState(2);
@@ -17,7 +17,7 @@ const ProductsSection: React.FC = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="sm:flex sm:flex-col lg:block lg:p-6 sm:p-2 sm:items-center">
       <h1 className="text-[40px] font-bold mb-6 text-center">Our Products</h1>
       <ApiFetcher
         url="http://ec2-34-239-122-225.compute-1.amazonaws.com:3000/products"
@@ -34,6 +34,7 @@ const ProductsSection: React.FC = () => {
               <ProductsGrid
                 products={productsToShow}
                 onAddToCart={handleAddToCart}
+                viewMode="grid"
               />
 
               {canShowMore && (

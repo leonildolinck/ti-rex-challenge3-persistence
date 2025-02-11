@@ -14,7 +14,7 @@ const ProductsGrid: React.FC<ProductsGridProps> = ({
   viewMode
 }) => {
   return (
-    <div className={`grid ${viewMode === 'grid' ? 'grid-cols-4 gap-4' : 'grid-cols-1 gap-4'}`}>
+    <div className={`grid ${viewMode === 'grid' ? 'lg:grid-cols-4 sm:grid-cols-2 sm:gap-8 lg:gap-4 place-items-center' : 'grid-cols-1 gap-4'}`}>
       {products.map((product, index) => (
         <ProductCard
           key={index}

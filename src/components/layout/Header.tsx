@@ -4,22 +4,28 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { useUser } from "@clerk/clerk-react";
 import ProfileModal from "../ui/ProfileModal";
+import MobileMenu from "../ui/MobileMenu";
 
 const Header: React.FC = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const { isSignedIn } = useUser();
 
   return (
     <header className="p-7">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container mx-auto flex justify-between items-center relative">
         <div className="flex flex-row justify-center items-center gap-1">
+          <Link
+            to="/"
+            className="text-xl font-bold font-montserrat lg:text-[34px]">
           <img
             src="https://desafio-3.s3.us-east-1.amazonaws.com/logo.png"
             alt="Logo Furniro"
             className="lg:h-[32px] lg:w-[50px]"
           />
+          </Link>
           <Link
             to="/"
             className="text-xl font-bold font-montserrat lg:text-[34px]"
@@ -27,7 +33,24 @@ const Header: React.FC = () => {
             Furniro
           </Link>
         </div>
-        <nav>
+
+        {/* Mobile Hamburger Menu */}
+        <div className="lg:hidden flex items-center">
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            <img
+              src={
+                isMobileMenuOpen
+                  ? "https://desafio-3.s3.us-east-1.amazonaws.com/close-icon.svg" // Ícone de fechamento
+                  : "https://desafio-3.s3.us-east-1.amazonaws.com/hamburger-icon.svg" // Ícone de hambúrguer
+              }
+              alt="Menu"
+              className="w-8 h-8"
+            />
+          </button>
+        </div>
+
+        {/* Desktop Menu */}
+        <nav className="hidden lg:flex">
           <ul className="flex space-x-20">
             <li>
               <Link to="/home" className="hover:text-gray-400 font-poppins">
@@ -51,13 +74,15 @@ const Header: React.FC = () => {
             </li>
           </ul>
         </nav>
-        <div className="flex flex-row gap-8 mr-[40px] items-center justify-center">
+
+        {/* Desktop Profile and Cart Icons (Somente no desktop) */}
+        <div className="hidden lg:flex flex-row gap-8 mr-[40px] items-center justify-center">
           {!isSignedIn ? (
             <Link to="/login">
               <button>
                 <img
                   src="https://desafio-3.s3.us-east-1.amazonaws.com/profile.svg"
-                  alt=""
+                  alt="Profile"
                 />
               </button>
             </Link>
@@ -65,7 +90,7 @@ const Header: React.FC = () => {
             <button onClick={() => setIsProfileOpen(true)}>
               <img
                 src="https://desafio-3.s3.us-east-1.amazonaws.com/profile.svg"
-                alt=""
+                alt="Profile"
               />
             </button>
           )}
@@ -74,18 +99,24 @@ const Header: React.FC = () => {
             <button onClick={() => setIsCartOpen(true)}>
               <img
                 src="https://desafio-3.s3.us-east-1.amazonaws.com/cart.svg"
-                alt=""
+                alt="Cart"
               />
             </button>
           </div>
         </div>
-        {<CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />}
-        {
-          <ProfileModal
-            isOpen={isProfileOpen}
-            onClose={() => setIsProfileOpen(false)}
-          />
-        }
+
+        {/* Modais */}
+        <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+        <ProfileModal
+          isOpen={isProfileOpen}
+          onClose={() => setIsProfileOpen(false)}
+        />
+        
+        {/* Mobile Menu */}
+        <MobileMenu
+          isOpen={isMobileMenuOpen}
+          onClose={() => setIsMobileMenuOpen(false)}
+        />
       </div>
     </header>
   );

@@ -2,7 +2,7 @@ import React from "react";
 
 const BottomBanner: React.FC = () => {
   return (
-    <div className="flex flex-col w-full h-[270px] bg-[#FAF3EA] font-poppins items-center justify-center">
+    <div className="md:hidden sm:hidden flex flex-col w-full h-[270px] bg-[#FAF3EA] font-poppins items-center justify-center">
       <div className="flex flex-row items-center gap-[55px]">
         <div className="flex flex-row gap-4 items-center">
           <img

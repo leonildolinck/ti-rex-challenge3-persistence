@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import LoadingSpinner from "../components/common/LoadingSpinner";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
-import StarRating from "../components/common/StarRating";
+import LoadingSpinner from "../common/LoadingSpinner";
+import Header from "./Header";
+import Footer from "./Footer";
+import { useDispatch } from "react-redux";
+import { addProductToCart } from "../cart/slice";
+import StarRating from "../common/StarRating";
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -12,12 +14,16 @@ import {
   TwitterShareButton,
   TwitterIcon,
 } from "react-share";
-import Button from "../components/common/Button";
-import ProductsGrid from "../components/common/ProductsGrid";
-import ApiFetcher from "../services/ApiFetcher";
-import Product from "../services/ProductInterface";
+import Button from "../common/Button";
+import ProductsGrid from "../common/ProductsGrid";
+import ApiFetcher from "../../services/ApiFetcher";
+import Product from "../../services/ProductInterface";
 
-const SingleProduct: React.FC = () => {
+interface ProductCardProps {
+  product: Product;
+}
+
+const SingleProduct: React.FC<ProductCardProps> = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -35,6 +41,11 @@ const SingleProduct: React.FC = () => {
   const shareUrl = "http://localhost/produto/1";
   const title = "Look this amazing furniture!";
   const bgColor = "#000000";
+
+  const dispatch = useDispatch();
+  const handleProductClick = () => {
+    dispatch(addProductToCart(product));
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -116,6 +127,7 @@ const SingleProduct: React.FC = () => {
               <div>Color</div>
               <div>Quantity</div>
               <Button
+                onClick={handleProductClick}
                 label="Add To Cart"
                 type="button"
                 kind="outlineblack"
@@ -233,6 +245,7 @@ const SingleProduct: React.FC = () => {
               <ProductsGrid
                 products={productsToShow}
                 onAddToCart={handleAddToCart}
+                viewMode="list"
               />
 
               {canShowMore && (

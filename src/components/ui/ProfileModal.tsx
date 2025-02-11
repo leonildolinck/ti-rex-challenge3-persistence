@@ -17,7 +17,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed top-0 left-0 z-50 bg-black bg-opacity-50 h-full w-full font-poppins">
-      <div className="absolute flex flex-col right-0 top-0 bg-white w-[417px] min-h-[746px] shadow-lg rounded-lg">
+      <div className="absolute flex flex-col right-0 top-0 bg-white w-[417px] min-h-[746px]">
         <div>
           <button
             onClick={onClose}

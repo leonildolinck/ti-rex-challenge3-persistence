@@ -54,7 +54,7 @@ const LoginSection: React.FC = () => {
     try {
       await signIn.authenticateWithRedirect({
         strategy: `oauth_${provider}`,
-        redirectUrl: "http://localhost:5173/sign-in-callback", // URL exata
+        redirectUrl: "http://localhost:5173/sign-in-callback",
         redirectUrlComplete: "/home",
       });
     } catch (error) {
@@ -104,12 +104,12 @@ const LoginSection: React.FC = () => {
           {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
 
           <div className="text-center">
-            <Button
-              onClick={handleLogin}
-              kind="outlineblack"
-              type="button"
-              label="Log In"
-            />
+          <button
+                  type="submit"
+                  className="bg-[#B88E2F] hover:bg-yellow-600 text-white font-medium py-2 px-6 w-full"
+                >
+                  Sign In
+                </button>
           </div>
           <p className="text-center mt-4">Don't have an account? Try 
             <Link to="/register" className="text-blue-500 hover:text-blue-700"> Sign Up</Link>

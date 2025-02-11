@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import SingleProduct from "./pages/SingleProduct";
+import SingleProduct from "./components/layout/SingleProduct";
 import Cart from "./pages/Cart";
 import Shop from "./pages/Shop";
 import Checkout from "./pages/Checkout";
@@ -12,6 +12,7 @@ import ProtectedLayout from "./components/layout/ProtectedLayout";
 import UserSync from "./hooks/UserSync";
 import AuthCallback from "./services/AuthCallback";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
 
 
 const App: React.FC = () => {
@@ -30,10 +31,10 @@ const App: React.FC = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/sign-in-callback" element={<AuthCallback />} />
 
-
         <Route element={<ProtectedLayout />}>
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
 
         <Route path="/*" element={<NotFound />} />

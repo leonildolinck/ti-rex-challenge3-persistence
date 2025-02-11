@@ -13,6 +13,18 @@ interface SplideOptions {
   arrows: boolean;
   gap: string;
   focus: string;
+  breakpoints: Record<number, SplideBreakpointOptions>;
+}
+
+interface SplideBreakpointOptions {
+  perPage?: number;
+  perMove?: number;
+  autoplay?: boolean;
+  interval?: number;
+  pagination?: boolean;
+  arrows?: boolean;
+  gap?: string;
+  focus?: string;
 }
 
 interface CustomSplideProps {
@@ -93,7 +105,7 @@ const InspirationSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="products-section flex bg-[#FCF8F3] p-20 items-center font-poppins">
+    <section className="products-section flex sm:flex-col lg:flex-row bg-[#FCF8F3] lg:p-20 sm:p-4 items-center font-poppins">
       <div className="w-1/3 p-2 mr-6">
         <h2 className="text-[40px] font-bold mb-4 text-[#3A3A3A]">
           50+ Beautiful Rooms Inspiration
@@ -104,18 +116,25 @@ const InspirationSection: React.FC = () => {
         </p>
       </div>
 
-      <div className="w-2/3">
+      <div className="lg:w-2/3 sm:w-full">
         <Splide
           options={{
             type: "loop",
             perPage: 2,
             perMove: 1,
-            autoplay: true,
+            autoplay: false,
             interval: 5000,
             pagination: true,
             arrows: true,
             gap: "1rem",
             focus: "left",
+            breakpoints: {
+              1024: {
+                perPage: 1,
+                gap: "1rem",
+                pagination: false,
+              },
+            },
           }}
           ref={splideRef}
         >

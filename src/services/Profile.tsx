@@ -2,7 +2,7 @@ import React from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { useEffect } from "react";
 
-const Profile = () => {
+const ProfileCallBack = () => {
   const { isSignedIn, user, isLoaded } = useAuth();
 
   useEffect(() => {
@@ -27,4 +27,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfileCallBack;

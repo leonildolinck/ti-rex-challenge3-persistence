@@ -53,7 +53,7 @@ const RegisterSection: React.FC = () => {
       </div>
 
       <div className="flex justify-center">
-        <div className="bg-white w-full max-w-md p-8 shadow-lg rounded-lg">
+        <div className="bg-white w-full max-w-md p-8 rounded-lg">
           {isSuccess ? (
             <div className="text-center text-green-600">
               <h3 className="text-xl font-semibold">
@@ -169,7 +169,7 @@ const RegisterSection: React.FC = () => {
               <div className="text-center">
                 <button
                   type="submit"
-                  className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 rounded-lg w-full"
+                  className="bg-[#B88E2F] hover:bg-yellow-600 text-white font-medium py-2 px-6 w-full"
                 >
                   Sign Up
                 </button>

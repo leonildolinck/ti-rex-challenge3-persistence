@@ -53,7 +53,7 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section className="flex flex-col bg-white pb-[68px] pt-[68px]">
+    <section className="flex flex-col bg-white pb-[68px] pt-[68px] sm:flex-col">
       <div className="text-center top-[514px] left-0 right-0">
         <h2 className="text-2xl md:text-3xl font-semibold text-black">
           Get In Touch With Us
@@ -65,8 +65,8 @@ const ContactSection: React.FC = () => {
         </p>
       </div>
 
-      <div className="flex flex-row justify-center gap-x-[160px]">
-        <div className="flex flex-col gap-8 pt-[130px]">
+      <div className="flex flex-col md:flex-row justify-center gap-x-8 md:gap-x-[160px] mt-10">
+        <div className="flex flex-col sm:flex-row gap-8 md:pt-[130px] px-4 md:px-0 sm:items-center">
           <div className="flex flex-row items-start">
             <img
               src="https://desafio-3.s3.us-east-1.amazonaws.com/address.svg"
@@ -74,7 +74,7 @@ const ContactSection: React.FC = () => {
               className="h-[22px] w-[22px]"
             />
             <div>
-              <h3 className="text-[24px] font-medium text-black mb-2">
+              <h3 className="text-[20px] md:text-[24px] font-medium text-black mb-2">
                 Address
               </h3>
               <p className="text-black">236 5th SE Avenue,</p>
@@ -113,7 +113,7 @@ const ContactSection: React.FC = () => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="bg-white mt-[130px] p-8 flex flex-col gap-6"
+          className="bg-white mt-10 md:mt-[130px] p-6 md:p-8 flex flex-col gap-6 w-full md:w-[528px] mx-4 md:mx-0"
         >
           <div className="flex flex-col mb-4">
             <label htmlFor="name" className="block font-medium text-black">
@@ -125,7 +125,7 @@ const ContactSection: React.FC = () => {
               placeholder="Abc"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className={`w-[528px] mt-2 p-6 border rounded-lg ${
+              className={`w-full mt-2 p-6 border rounded-lg ${
                 errors.name ? "border-red-500" : "border-gray-300"
               }`}
             />
@@ -188,7 +188,7 @@ const ContactSection: React.FC = () => {
 
           <button
             type="submit"
-            className="bg-[#B88E2F] w-[237px] h-[55px] text-white font-medium py-2 px-6 rounded-lg text-[16px] mt-[20px]"
+            className="bg-[#B88E2F] w-full md:w-[237px] h-[55px] text-white font-medium py-2 px-6 rounded-lg text-[16px] mt-[20px]"
           >
             Submit
           </button>

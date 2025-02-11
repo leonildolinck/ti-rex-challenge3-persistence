@@ -8,7 +8,7 @@ import Pagination from "../common/Pagination";
 
 const ShopSection: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(8); // Estado para o número de itens por página
+  const [itemsPerPage, setItemsPerPage] = useState(8);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   const [filters, setFilters] = useState({
@@ -24,7 +24,6 @@ const ShopSection: React.FC = () => {
   const [processedData, setProcessedData] = useState<Product[]>([]);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
 
-  // Atualiza os preços mínimos e máximos com base nos produtos da API
   useEffect(() => {
     if (allProducts.length > 0) {
       const allPrices = allProducts.map((product) => product.actual_price);
@@ -33,7 +32,6 @@ const ShopSection: React.FC = () => {
     }
   }, [allProducts]);
 
-  // Atualiza os dados processados com base nos filtros e ordenação
   useEffect(() => {
     const filtered = allProducts
       .filter((product) => {
@@ -69,7 +67,7 @@ const ShopSection: React.FC = () => {
 
   const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setItemsPerPage(parseInt(e.target.value));
-    setCurrentPage(1); // Reseta para a primeira página ao alterar o número de itens
+    setCurrentPage(1);
   };
 
   const handlePageChange = (page: number) => {
