@@ -8,8 +8,7 @@ import Pagination from "../common/Pagination";
 
 const ShopSection: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
-
+  const [itemsPerPage, setItemsPerPage] = useState(8); // Estado para o número de itens por página
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   const [filters, setFilters] = useState({
@@ -25,6 +24,7 @@ const ShopSection: React.FC = () => {
   const [processedData, setProcessedData] = useState<Product[]>([]);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
 
+  // Atualiza os preços mínimos e máximos com base nos produtos da API
   useEffect(() => {
     if (allProducts.length > 0) {
       const allPrices = allProducts.map((product) => product.actual_price);
@@ -33,6 +33,7 @@ const ShopSection: React.FC = () => {
     }
   }, [allProducts]);
 
+  // Atualiza os dados processados com base nos filtros e ordenação
   useEffect(() => {
     const filtered = allProducts
       .filter((product) => {
@@ -66,6 +67,11 @@ const ShopSection: React.FC = () => {
     setSortBy(e.target.value as "name" | "price");
   };
 
+  const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setItemsPerPage(parseInt(e.target.value));
+    setCurrentPage(1); // Reseta para a primeira página ao alterar o número de itens
+  };
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -85,7 +91,7 @@ const ShopSection: React.FC = () => {
               <div className="absolute top-1 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 font-poppins">
                 <div className="flex flex-col bg-white p-4 gap-4">
                   <h3 className="text-xl font-bold mb-2">Filter</h3>
-                  <div className="">
+                  <div>
                     <label className="block">Name:</label>
                     <input
                       type="text"
@@ -95,7 +101,7 @@ const ShopSection: React.FC = () => {
                       className="w-full p-2 border rounded"
                     />
                   </div>
-                  <div className="">
+                  <div>
                     <label className="block">
                       Min Price: {filters.minPrice}
                     </label>
@@ -174,9 +180,30 @@ const ShopSection: React.FC = () => {
             src="https://desafio-3.s3.us-east-1.amazonaws.com/barra.svg"
             alt="separator"
           />
-          <p>
+          <p className="text-nowrap">
             Showing {itemsPerPage} of {processedData.length} results
           </p>
+        </div>
+        <div className="flex items-center gap-4 px-28">
+          <p>Show</p>
+          <select
+            onChange={handleItemsPerPageChange}
+            value={itemsPerPage}
+            className="p-2 border rounded bg-white"
+          >
+            <option value={4}>4</option>
+            <option value={8}>8</option>
+            <option value={16}>16</option>
+          </select>
+          <p>Sort</p>
+          <select
+            onChange={handleSortChange}
+            value={sortBy}
+            className="p-2 border rounded bg-white"
+          >
+            <option value="name">Name</option>
+            <option value="price">Price</option>
+          </select>
         </div>
       </div>
 
