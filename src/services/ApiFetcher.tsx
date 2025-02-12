@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 type Product = {
+  id: string;
   name: string;
   image: string;
   type: string;

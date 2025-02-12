@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ApiFetcher from "../../services/ApiFetcher";
-import LoadingSpinner from "../common/LoadingSpinner";
-import Button from "../common/Button";
-import ProductsGrid from "../common/ProductsGrid";
 import Product from "../../services/ProductInterface";
+import LoadingSpinner from "../common/LoadingSpinner";
 import Pagination from "../common/Pagination";
+import ProductsGrid from "../common/ProductsGrid";
 
 const ShopSection: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,6 +28,22 @@ const ShopSection: React.FC = () => {
       const allPrices = allProducts.map((product) => product.actual_price);
       setMinPrice(Math.min(...allPrices));
       setMaxPrice(Math.max(...allPrices));
+    }
+  }, [allProducts]);
+
+  useEffect(() => {
+    if (allProducts.length > 0) {
+      const allPrices = allProducts.map((product) => product.actual_price);
+      const min = Math.min(...allPrices);
+      const max = Math.max(...allPrices);
+      setMinPrice(min);
+      setMaxPrice(max);
+
+      setFilters((prev) => ({
+        ...prev,
+        minPrice: min.toString(),
+        maxPrice: max.toString(),
+      }));
     }
   }, [allProducts]);
 
@@ -65,7 +80,9 @@ const ShopSection: React.FC = () => {
     setSortBy(e.target.value as "name" | "price");
   };
 
-  const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleItemsPerPageChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setItemsPerPage(parseInt(e.target.value));
     setCurrentPage(1);
   };
@@ -76,18 +93,19 @@ const ShopSection: React.FC = () => {
 
   return (
     <div>
-      <div className="flex flex-row justify-between bg-[#FAF3EA] min-h-[100px] items-center">
-        <div className="flex items-center w-full px-28 gap-12">
+      <div className="lg:flex lg:flex-row lg:justify-between bg-[#FAF3EA] lg:min-h-[100px] lg:items-center sm:flex sm:flex-row sm:w-full sm:h-full sm:py-2 sm:items-center font-poppins">
+        <div className="lg:flex lg:items-center lg:w-full lg:px-28 lg:gap-12 sm:flex sm:flex-row sm:px-8 sm:h-full sm:w-full sm:justify-between md:flex md:items-center md:w-full md:px-14">
           <div className="relative">
             <button onClick={() => setIsModalOpen(true)}>
               <img
                 src="https://desafio-3.s3.us-east-1.amazonaws.com/filter.svg"
                 alt=""
+                className="sm:h-[30px] sm-w-[30px]"
               />
             </button>
             {isModalOpen && (
               <div className="absolute top-1 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 font-poppins">
-                <div className="flex flex-col bg-white p-4 gap-4">
+                <div className="flex flex-col bg-white p-4 gap-4 sm:w-[300px]">
                   <h3 className="text-xl font-bold mb-2">Filter</h3>
                   <div>
                     <label className="block">Name:</label>
@@ -140,27 +158,19 @@ const ShopSection: React.FC = () => {
                       <option value="price">Price</option>
                     </select>
                   </div>
-                  <div className="flex justify-between gap-4">
-                    <Button
+                  <div className="flex flex-col justify-between gap-4 items-center">
+                    <button
                       onClick={() => setIsModalOpen(false)}
-                      label="Close"
-                      type="button"
-                      kind="outlineblack"
-                      size="xs"
-                    />
-                    <Button
-                      onClick={() => setIsModalOpen(false)}
-                      label="Apply"
-                      type="button"
-                      kind="outlineblack"
-                      size="xs"
-                    />
+                      className="font-poppins text-[20px] text-black border border-[#000000] rounded-[10px] sm:h-[38px] sm:w-[100px]"
+                    >
+                      Close
+                    </button>
                   </div>
                 </div>
               </div>
             )}
           </div>
-          <p className="font-semibold">Filter</p>
+          <p className="sm:hidden lg:block text-start lg:text-[20px]">Filter</p>
           <button onClick={() => setViewMode("grid")}>
             <img
               src="https://desafio-3.s3.us-east-1.amazonaws.com/grid.svg"
@@ -178,29 +188,54 @@ const ShopSection: React.FC = () => {
             src="https://desafio-3.s3.us-east-1.amazonaws.com/barra.svg"
             alt="separator"
           />
-          <p className="text-nowrap">
+          <p className="text-nowrap sm:hidden lg:block">
             Showing {itemsPerPage} of {processedData.length} results
           </p>
         </div>
-        <div className="flex items-center gap-4 px-28">
-          <p>Show</p>
+        <div className="lg:flex lg:items-center lg:gap-4 lg:px-28 sm:flex sm:items-center sm:gap-4 sm:px-6 md:px-8 md:flex md:items-center md:gap-4 ">
+          <p className="sm:text-[10px] md:text-[15px] lg:text-[20px]">Show</p>
           <select
             onChange={handleItemsPerPageChange}
             value={itemsPerPage}
-            className="p-2 border rounded bg-white"
+            className="lg:p-2 sm:p-0 md:p-0 border bg-white sm:h-[22px] sm:w-[22px] sm:text-[10px] text-center lg:text-[20px] lg:h-[55px] lg:w-[55px] md:h-[30px] md:w-[30px]"
           >
-            <option value={4}>4</option>
-            <option value={8}>8</option>
-            <option value={16}>16</option>
+            <option
+              value={4}
+              className="sm:text-[10px] md:text-[15px] lg:text-[20px]"
+            >
+              4
+            </option>
+            <option
+              value={8}
+              className="sm:text-[10px] md:text-[15px] lg:text-[20px]"
+            >
+              8
+            </option>
+            <option
+              value={16}
+              className="sm:text-[10px] md:text-[15px] lg:text-[20px]"
+            >
+              16
+            </option>
           </select>
-          <p>Sort</p>
+          <p className="sm:text-[10px] md:text-[15px] lg:text-[20px]">Sort</p>
           <select
             onChange={handleSortChange}
             value={sortBy}
-            className="p-2 border rounded bg-white"
+            className="lg:p-2 sm:p-0 border bg-white sm:h-[22px] sm:w-[66px] sm:text-[10px] text-center lg:text-[20px] lg:h-[55px] lg:w-[188px] md:h-[30px] md:w-[100px]"
           >
-            <option value="name">Name</option>
-            <option value="price">Price</option>
+            <option
+              className="sm:text-[10px] md:text-[15px] lg:text-[20px]"
+              value="name"
+            >
+              Name
+            </option>
+            <option
+              className="sm:text-[10px] md:text-[15px] lg:text-[20px]"
+              value="price"
+            >
+              Price
+            </option>
           </select>
         </div>
       </div>
@@ -222,7 +257,7 @@ const ShopSection: React.FC = () => {
             <>
               <ProductsGrid
                 products={productsToShow}
-                onAddToCart={(product) => console.log("Add to cart", product)}
+                onAddToCart={(product) => console.log(product)}
                 viewMode={viewMode}
               />
               <Pagination

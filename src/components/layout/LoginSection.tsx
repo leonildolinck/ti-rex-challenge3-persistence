@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSignIn, useAuth } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
-import Button from "../common/Button";
 import { Link } from "react-router-dom";
 
 const LoginSection: React.FC = () => {
@@ -21,7 +20,7 @@ const LoginSection: React.FC = () => {
 
   const handleLogin = async () => {
     if (!isSignInLoaded) {
-      console.error("Clerk ainda não carregou...");
+      console.error("Clerk not loaded...");
       return;
     }
 
@@ -37,17 +36,18 @@ const LoginSection: React.FC = () => {
         await signIn.setActive({ session: signInResponse.createdSessionId });
         navigate("/profile");
       } else {
-        setError("Login falhou. Verifique as credenciais.");
+        setError("Login failed. Check your credentials.");
       }
     } catch (error) {
-      console.error("Erro no login:", error);
-      setError("Ocorreu um erro durante o login.");
+      console.error("Error on login:", error);
+      const errorMessage = error?.message
+      setError(errorMessage);
     } 
   };
 
   const handleSocialLogin = async (provider: string) => {
     if (!isSignInLoaded) {
-      console.error("Clerk ainda não carregou...");
+      console.error("Clerk not loaded...");
       return;
     }
 
@@ -58,8 +58,8 @@ const LoginSection: React.FC = () => {
         redirectUrlComplete: "/home",
       });
     } catch (error) {
-      console.error(`Erro no login com ${provider}:`, error);
-      setError(`Ocorreu um erro ao tentar logar com ${provider}.`);
+      console.error(`Login error with ${provider}:`, error);
+      setError(`Error as  ${provider}.`);
     }
   };
 
@@ -80,7 +80,7 @@ const LoginSection: React.FC = () => {
               placeholder="example@domain.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full mt-2 p-3 border border-gray-300 rounded-lg"
+              className="w-full mt-2 p-3 border border-gray-300"
             />
           </div>
 
@@ -97,7 +97,7 @@ const LoginSection: React.FC = () => {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full mt-2 p-3 border border-gray-300 rounded-lg"
+              className="w-full mt-2 p-3 border border-gray-300"
             />
           </div>
 
@@ -105,7 +105,8 @@ const LoginSection: React.FC = () => {
 
           <div className="text-center">
           <button
-                  type="submit"
+          onClick={handleLogin}
+                  type="button"
                   className="bg-[#B88E2F] hover:bg-yellow-600 text-white font-medium py-2 px-6 w-full"
                 >
                   Sign In

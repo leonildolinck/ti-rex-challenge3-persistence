@@ -27,17 +27,17 @@ const Footer: React.FC = () => {
   return (
     <footer className="p-8 sm:p-1 md:p-4 lg:p-20 font-poppins">
       <hr className=" sm:p-4 sm:border-t sm:border-[#D9D9D9] lg:hidden" />
-      <div className="flex flex-col md:flex-col-reverse sm:flex-col-reverse lg:flex-row justify-between gap-8 md:gap-10">        
-        <div className="flex flex-col sm:items-center">
+      <div className="flex flex-col md:flex-col-reverse sm:flex-col-reverse lg:flex-row justify-between gap-8 md:gap-10 mb-10">        
+        <div className="flex flex-col sm:items-center lg:items-start">
           <p className="text-[24px] font-bold">Furniro.</p>
-          <p className="text-[#9F9F9F] mt-12 sm:mt-2">
+          <p className="text-[#9F9F9F] sm:mt-2 lg:mt-10">
             400 University Drive Suite 200 Coral
           </p>
           <p className="text-[#9F9F9F]">Gables,</p>
           <p className="text-[#9F9F9F]">FL 33134 USA</p>
-          <div className="flex flex-row gap-4 mt-[55px] mb-20 sm:mb-2 sm:mt-2">
+          <div className="flex flex-row gap-4 lg:mt-[55px] mb-20 sm:mb-2 sm:mt-2">
             <a
-              href="https://www.instagram.com"
+              href="https://www.facebook.com"
               className="flex h-[34px] w-[34px] rounded-full items-center justify-center shadow-lg"
             >
               <img
@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
               />
             </a>
             <a
-              href="https://www.instagram.com"
+              href="https://www.twitter.com"
               className="flex h-[34px] w-[34px] rounded-full items-center justify-center shadow-xl"
             >
               <img
@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
               />
             </a>
             <a
-              href="https://www.instagram.com"
+              href="https://www.linkedin.com"
               className="flex h-[34px] w-[34px] rounded-full items-center justify-center shadow-xl"
             >
               <img
@@ -74,25 +74,25 @@ const Footer: React.FC = () => {
             </a>
           </div>
         </div>
-        <div className="sm:flex sm:flex-row sm:justify-center sm:gap-40 md:gap-20">
+        <div className="sm:flex sm:flex-row sm:justify-center sm:gap-[50px] md:gap-20 sm:items-start">
           <div className="flex flex-col md:w-1/3">
             <nav>
               <p className="text-[#9F9F9F]">Links</p>
-              <ul className="flex flex-col gap-6 mt-6 md:gap-12">
+              <ul className="flex flex-col gap-6 lg:mt-6 sm:mt-2 md:gap-12 lg:gap-12">
                 <li>
-                  <Link to="/home" className="hover:text-gray-400 font-poppins">
+                  <Link to="/home" className="hover:text-gray-400 font-poppins font-medium">
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link to="/shop" className="hover:text-gray-400 font-poppins">
+                  <Link to="/shop" className="hover:text-gray-400 font-poppins font-medium">
                     Shop
                   </Link>
                 </li>
                 <li>
                   <Link
                     to="/about"
-                    className="hover:text-gray-400 font-poppins"
+                    className="hover:text-gray-400 font-poppins font-medium"
                   >
                     About
                   </Link>
@@ -100,7 +100,7 @@ const Footer: React.FC = () => {
                 <li>
                   <Link
                     to="/contact"
-                    className="hover:text-gray-400 font-poppins"
+                    className="hover:text-gray-400 font-poppins font-medium"
                   >
                     Contact
                   </Link>
@@ -108,11 +108,11 @@ const Footer: React.FC = () => {
               </ul>
             </nav>
           </div>
-          <div className="flex flex-col gap-6 md:gap-12">
-            <p className="text-[#9F9F9F]">Help</p>
-            <a href="#"> Payment Options</a>
-            <a href="#"> Returns</a>
-            <a href="#"> Privacy Policies</a>
+          <div className="flex flex-col gap-6 lg:mt-0 sm:mt-0 md:gap-12 lg:gap-12">
+            <span className="text-[#9F9F9F]">Help</span>
+            <a href="#" className="font-medium text-nowrap"> Payment Options</a>
+            <a href="#" className="font-medium"> Returns</a>
+            <a href="#" className="font-medium"> Privacy Policies</a>
           </div>
         </div>
         <div>
@@ -125,13 +125,16 @@ const Footer: React.FC = () => {
               <div className="flex flex-col gap-2 sm:items-center md:items-center">
                 <input
                   type="email"
-                  placeholder="Enter Your Email Address"
+                  placeholder="   Enter Your Email Address"
                   className={`border-b w-[200px] text-[14px] border-black ${
                     error ? "border-red-500" : ""
                   }`}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                {error && (
+                <p className="text-red-500 text-[12px] mt-1">{error}</p>
+              )}
                 <button
                   className="font-medium border-b border-black text-[14px] hover:bg-gray-100 mt-2 md:mt-0 sm:w-20"
                   onClick={handleSubscribe}
@@ -139,9 +142,6 @@ const Footer: React.FC = () => {
                   Subscribe
                 </button>
               </div>
-              {error && (
-                <p className="text-red-500 text-[12px] mt-1">{error}</p>
-              )}
             </div>
           )}
         </div>
@@ -149,7 +149,7 @@ const Footer: React.FC = () => {
 
       <hr className="my-8 p-4 sm:my-2 sm:p-2 border-t border-[#D9D9D9]" />
 
-      <div className="text-center sm:mb-8">
+      <div className="text-center sm:mb-8 lg:mb-0">
         <p>&copy; 2023 furniro. All rights reserved</p>
       </div>
     </footer>

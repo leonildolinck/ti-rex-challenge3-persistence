@@ -24,11 +24,12 @@ const Pagination: React.FC<PaginationProps> = ({
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <div className="flex justify-center mt-8 space-x-2">
+    <div className="flex justify-center mt-8 space-x-2 mb-8">
       <button
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-3 py-1 border rounded disabled:opacity-50"
+        className={`lg:px-6 lg:py-3 bg-[#F9F1E7] text-black lg:text-[20px] opacity-50 rounded ${currentPage == 1 && 'hidden'}`}
+
       >
         Previous
       </button>
@@ -37,7 +38,9 @@ const Pagination: React.FC<PaginationProps> = ({
           key={page}
           onClick={() => handlePageChange(page)}
           className={`px-3 py-1 border rounded ${
-            currentPage === page ? "bg-[#B88E2F] text-white" : ""
+            currentPage === page
+              ? "rounded lg:px-6 lg:py-3 bg-[#B88E2F] text-white lg:text-[20px]"
+              : "rounded lg:px-6 lg:py-3 bg-[#F9F1E7] text-black lg:text-[20px] opacity-50"
           }`}
         >
           {page}
@@ -46,7 +49,7 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-3 py-1 border rounded disabled:opacity-50"
+        className="rounded lg:px-6 lg:py-3 bg-[#F9F1E7] text-black lg:text-[20px] opacity-50"
       >
         Next
       </button>

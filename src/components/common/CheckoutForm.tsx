@@ -21,7 +21,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onFormSubmit }) => {
   const [townCity, setTownCity] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [country, setCountry] = useState(""); // Corrigido para 'country'
+  const [country, setCountry] = useState("");
   const [addOnAddress, setAddOnAddress] = useState("");
   const [additionalInfo, setAdditionalInfo] = useState("");
 
@@ -83,30 +83,30 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onFormSubmit }) => {
   };
 
   return (
-    <div className="bg-white p-10 border border-gray-300 rounded-md w-1/2 font-poppins">
-      <h1 className="font-bold text-[36px] mb-4">Billing Details</h1>
+    <div className="bg-white p-10 border border-gray-300 rounded-md lg:w-1/2 font-poppins">
+      <h1 className="font-semibold lg:text-[36px] mb-4">Billing Details</h1>
       <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
         <div className="flex gap-4">
           <div className="flex flex-col flex-1">
-            <label htmlFor="firstName" className="mb-1 text-gray-600">
+            <label htmlFor="firstName" className="sm:text-[10px] md:text-[14px] lg:text-[16px] mb-1 text-gray-600">
               First Name
             </label>
             <input
               type="text"
               id="firstName"
-              className="border border-gray-300 rounded-md px-3 py-2 w-full"
+              className="sm:text-[10px] md:text-[14px] lg:text-[16px] border border-gray-300 rounded-md px-3 py-2 w-full"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
           <div className="flex flex-col flex-1">
-            <label htmlFor="lastName" className="mb-1 text-gray-600">
+            <label htmlFor="lastName" className="sm:text-[10px] md:text-[14px] lg:text-[16px] mb-1 text-gray-600">
               Last Name
             </label>
             <input
               type="text"
               id="lastName"
-              className="border border-gray-300 rounded-md px-3 py-2 w-full"
+              className="sm:text-[10px] md:text-[14px] lg:text-[16px] border border-gray-300 rounded-md px-3 py-2 w-full"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
@@ -114,26 +114,27 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onFormSubmit }) => {
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="zipCode" className="mb-1 text-gray-600">
+          <label htmlFor="zipCode" className="sm:text-[10px] md:text-[14px] lg:text-[16px] mb-1 text-gray-600">
             ZIP Code
           </label>
           <input
             type="text"
             id="zipCode"
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            className="sm:text-[10px] md:text-[14px] lg:text-[16px] border border-gray-300 rounded-md px-3 py-2 w-full"
             value={zipCode}
             onChange={handleZipCodeChange}
           />
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="country" className="mb-1 text-gray-600">
+          <label htmlFor="country" className="sm:text-[10px] md:text-[14px] lg:text-[16px] mb-1 text-gray-600">
             Country/Region
           </label>
           <input
             type="text"
             id="country"
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            placeholder="Brazil"
+            className="sm:text-[10px] md:text-[14px] lg:text-[16px] border border-gray-300 rounded-md px-3 py-2 w-full"
             value={country}
             onChange={() => setCountry("Brazil")}
             readOnly
@@ -141,13 +142,13 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onFormSubmit }) => {
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="streetAddress" className="mb-1 text-gray-600">
+          <label htmlFor="streetAddress" className="sm:text-[10px] md:text-[14px] lg:text-[16px] mb-1 text-gray-600">
             Street Address
           </label>
           <input
             type="text"
             id="streetAddress"
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            className="sm:text-[10px] md:text-[14px] lg:text-[16px] border border-gray-300 rounded-md px-3 py-2 w-full"
             value={streetAddress}
             onChange={(e) => setStreetAddress(e.target.value)}
             readOnly
@@ -155,13 +156,13 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onFormSubmit }) => {
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="townCity" className="mb-1 text-gray-600">
+          <label htmlFor="townCity" className="sm:text-[10px] md:text-[14px] lg:text-[16px] mb-1 text-gray-600">
             Town/City
           </label>
           <input
             type="text"
             id="townCity"
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            className="sm:text-[10px] md:text-[14px] lg:text-[16px] border border-gray-300 rounded-md px-3 py-2 w-full"
             value={townCity}
             onChange={(e) => setTownCity(e.target.value)}
             readOnly
@@ -169,13 +170,13 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onFormSubmit }) => {
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="province" className="mb-1 text-gray-600">
+          <label htmlFor="province" className="sm:text-[10px] md:text-[14px] lg:text-[16px] mb-1 text-gray-600">
             Province
           </label>
           <input
             type="text"
             id="province"
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            className="sm:text-[10px] md:text-[14px] lg:text-[16px] border border-gray-300 rounded-md px-3 py-2 w-full"
             value={province}
             onChange={(e) => setProvince(e.target.value)}
             readOnly
@@ -183,25 +184,25 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onFormSubmit }) => {
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="addOnAddress" className="mb-1 text-gray-600">
+          <label htmlFor="addOnAddress" className="sm:text-[10px] md:text-[14px] lg:text-[16px] mb-1 text-gray-600">
             Add-on Address
           </label>
           <input
             type="text"
             id="addOnAddress"
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            className="sm:text-[10px] md:text-[14px] lg:text-[16px] border border-gray-300 rounded-md px-3 py-2 w-full"
             value={addOnAddress}
             onChange={(e) => setAddOnAddress(e.target.value)}
           />
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="additionalInfo" className="mb-1 text-gray-600">
+          <label htmlFor="additionalInfo" className="sm:text-[10px] md:text-[14px] lg:text-[16px] mb-1 text-gray-600">
             Additional Information
           </label>
           <textarea
             id="additionalInfo"
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            className="sm:text-[10px] md:text-[14px] lg:text-[16px] border border-gray-300 rounded-md px-3 py-2 w-full"
             value={additionalInfo}
             onChange={(e) => setAdditionalInfo(e.target.value)}
           ></textarea>

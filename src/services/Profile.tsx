@@ -7,7 +7,7 @@ const ProfileCallBack = () => {
 
   useEffect(() => {
     if (isLoaded) {
-      console.log("Estado do usuário:", { isSignedIn, user });
+      console.log(user);
     }
   }, [isLoaded, isSignedIn, user]);
 

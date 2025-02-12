@@ -12,4 +12,5 @@ export default interface Product {
   SKU: string;
   category: string;
   tags: string[];
+  quantity?: number;
 }

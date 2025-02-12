@@ -13,7 +13,7 @@ const ProductsSection: React.FC = () => {
   };
 
   const handleAddToCart = (product: Product) => {
-    console.log("Adicionar ao carrinho:", product);
+    console.log(product);
   };
 
   return (
@@ -38,7 +38,7 @@ const ProductsSection: React.FC = () => {
               />
 
               {canShowMore && (
-                <div className="text-center mt-6">
+                <div className="text-center mt-6 mb-6">
                   <Button
                     onClick={handleShowMore}
                     label="Show More"

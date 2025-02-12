@@ -18,7 +18,7 @@ import Profile from "./pages/Profile";
 const App: React.FC = () => {
   
   return (
-    <body>
+    <div>
       <UserSync />
       <Routes>
 
@@ -39,7 +39,7 @@ const App: React.FC = () => {
 
         <Route path="/*" element={<NotFound />} />
       </Routes>
-    </body>
+    </div>
   );
 };
 

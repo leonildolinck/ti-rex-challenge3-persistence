@@ -16,13 +16,15 @@ const cartSlice = createSlice({
       if (productIsAlreadyInCart) {
         state.products = state.products.map((product) =>
           product.id === action.payload.id
-            ? { ...product, quantity: product.quantity + 1 }
+            ? {
+                ...product,
+                quantity: product.quantity + action.payload.quantity,
+              }
             : product
         );
-        return;
+      } else {
+        state.products.push(action.payload);
       }
-
-      state.products = [...state.products, { ...action.payload, quantity: 1 }];
     },
 
     removeProductFromCart: (state, action) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import CartPageItem from "../ui/CartPageItem";
 import Button from "../common/Button";
+import { Link } from "react-router-dom";
 
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
@@ -13,35 +14,39 @@ const CartSection: React.FC = () => {
   const productsTotalPrice = useSelector(selectProductsTotalPrice);
 
   return (
-    <div className="flex flex-row justify-center px-[100px] py-[70px] gap-[30px] font-poppins">
-      <div className="flex flex-col w-[817px] h-[215px] ">
-        <div className="flex flex-colbg-[#F9F1E7] font-medium p-4 bg-[#F9F1E7] justify-between">
-          <h1 className="ml-[132px]">Product</h1>
+    <div className="flex flex-col lg:flex-row justify-center px-4 sm:px-0 md:px-0 lg:px-[100px] sm:py-0 md:py-[60px] lg:py-[70px] gap-[20px] sm:gap-[30px] md:gap-[30px] lg:gap-[30px] font-poppins">
+      <div className="flex flex-col lg:w-[817px] sm:w-full h-auto lg:h-auto sm:h-auto">
+        <div className="flex flex-row bg-[#F9F1E7] font-medium lg:p-4 sm:p-4 justify-between">
+          <h1 className="md:ml-[32px] sm:ml-2 lg:ml-[132px]">Product</h1>
           <h1>Price</h1>
           <h1>Quantity</h1>
-          <h1 className="mr-[132px]">Subtotal</h1>
+          <h1 className="md:mr-[32px] sm:mr-2 lg:mr-[132px]">Subtotal</h1>
         </div>
-        <div className="">
+        <div className="flex flex-col justify-center">
           {products.map((product) => (
-            <CartPageItem product={product} />
+            <CartPageItem key={product.id} product={product} />
           ))}
         </div>
       </div>
-      <div className="flex flex-col pb-20 bg-[#F9F1E7] w-[390px] h-[390px] justify-between items-center">
+
+      <div className="flex flex-col pb-10 lg:pb-20 bg-[#F9F1E7] lg:w-[390px] sm:w-full md:w-[320px] lg:h-[390px] sm:h-auto md:h-auto justify-between items-center">
         <div>
-          <h1 className="mt-4 font-semibold text-[32px]">Cart Totals</h1>
+          <h1 className="mt-4 font-semibold text-[28px] sm:text-[24px] md:text-[28px] lg:text-[32px]">Cart Totals</h1>
         </div>
         <div className="flex w-full justify-between">
-          <p className="ml-20 font-medium">Subtotal</p>
-          <p className="mr-20 text-[#9F9F9F]">R$ {productsTotalPrice}</p>
+          <p className="ml-10 sm:ml-10 md:ml-10 lg:ml-20 font-medium">Subtotal</p>
+          <p className="mr-10 sm:mr-10 md:mr-10 lg:mr-20 text-[#9F9F9F]">R$ {new Intl.NumberFormat("pt-BR").format(productsTotalPrice)}</p>
         </div>
         <div className="flex w-full justify-between">
-          <p className="ml-20 font-medium">Total</p>
-          <p className="mr-20 text-[20px] text-[#B88E2F]">
-            R$ {productsTotalPrice}
+          <p className="sm:ml-0 md:ml-10 lg:ml-20 font-medium">Total</p>
+          <p className="sm:mr-0 md:mr-10 lg:mr-20 text-[20px] text-[#B88E2F]">
+            R$ {new Intl.NumberFormat("pt-BR").format(productsTotalPrice)}
           </p>
         </div>
+        <Link to="/checkout">
+              {" "}
         <Button label="Check Out" type="button" kind="outlineblack" size="sm" />
+        </Link>
       </div>
     </div>
   );

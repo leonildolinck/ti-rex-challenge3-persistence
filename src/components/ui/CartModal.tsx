@@ -44,7 +44,7 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
         <div className="flex items-center justify-between px-8 py-4">
           <span className="font-poppins">Subtotal</span>
           <span className="font-semibold text-[#B88E2F] mr-20">
-            R$ {productsTotalPrice}
+            R$ {new Intl.NumberFormat("pt-BR").format(productsTotalPrice)}
           </span>
         </div>
 

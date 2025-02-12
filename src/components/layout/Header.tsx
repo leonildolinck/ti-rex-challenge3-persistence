@@ -19,12 +19,13 @@ const Header: React.FC = () => {
         <div className="flex flex-row justify-center items-center gap-1">
           <Link
             to="/"
-            className="text-xl font-bold font-montserrat lg:text-[34px]">
-          <img
-            src="https://desafio-3.s3.us-east-1.amazonaws.com/logo.png"
-            alt="Logo Furniro"
-            className="lg:h-[32px] lg:w-[50px]"
-          />
+            className="text-xl font-bold font-montserrat lg:text-[34px]"
+          >
+            <img
+              src="https://desafio-3.s3.us-east-1.amazonaws.com/logo.png"
+              alt="Logo Furniro"
+              className="lg:h-[32px] lg:w-[50px]"
+            />
           </Link>
           <Link
             to="/"
@@ -33,15 +34,13 @@ const Header: React.FC = () => {
             Furniro
           </Link>
         </div>
-
-        {/* Mobile Hamburger Menu */}
         <div className="lg:hidden flex items-center">
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             <img
               src={
                 isMobileMenuOpen
-                  ? "https://desafio-3.s3.us-east-1.amazonaws.com/close-icon.svg" // Ícone de fechamento
-                  : "https://desafio-3.s3.us-east-1.amazonaws.com/hamburger-icon.svg" // Ícone de hambúrguer
+                  ? "https://desafio-3.s3.us-east-1.amazonaws.com/close-icon.svg"
+                  : "https://desafio-3.s3.us-east-1.amazonaws.com/hamburger-icon.svg"
               }
               alt="Menu"
               className="w-8 h-8"
@@ -49,7 +48,6 @@ const Header: React.FC = () => {
           </button>
         </div>
 
-        {/* Desktop Menu */}
         <nav className="hidden lg:flex">
           <ul className="flex space-x-20">
             <li>
@@ -75,7 +73,6 @@ const Header: React.FC = () => {
           </ul>
         </nav>
 
-        {/* Desktop Profile and Cart Icons (Somente no desktop) */}
         <div className="hidden lg:flex flex-row gap-8 mr-[40px] items-center justify-center">
           {!isSignedIn ? (
             <Link to="/login">
@@ -105,14 +102,12 @@ const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* Modais */}
         <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
         <ProfileModal
           isOpen={isProfileOpen}
           onClose={() => setIsProfileOpen(false)}
         />
-        
-        {/* Mobile Menu */}
+
         <MobileMenu
           isOpen={isMobileMenuOpen}
           onClose={() => setIsMobileMenuOpen(false)}

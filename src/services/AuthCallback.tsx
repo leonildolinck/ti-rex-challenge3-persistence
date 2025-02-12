@@ -12,19 +12,15 @@ const AuthCallback = () => {
     const handleCallback = async () => {
       try {
         if (!clerk.loaded) {
-          console.log("Clerk ainda não carregou...");
           return;
         }
 
-        console.log("Processando callback...");
 
         await clerk.handleRedirectCallback();
 
         if (isSignedIn) {
-          console.log("Usuário autenticado com sucesso!");
           navigate("/profile");
         } else {
-          console.log("Usuário não autenticado. Redirecionando para login.");
           navigate("/login");
         }
       } catch (error) {

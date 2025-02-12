@@ -17,6 +17,7 @@ interface SplideOptions {
 }
 
 interface SplideBreakpointOptions {
+  type?: string;
   perPage?: number;
   perMove?: number;
   autoplay?: boolean;
@@ -88,7 +89,6 @@ const InspirationSection: React.FC = () => {
 
     const handleMove = (): void => {
       const newIndex = instance.Components.Controller.getIndex();
-      console.log("Active Index:", newIndex);
       setActiveIndex(newIndex);
     };
 
@@ -106,17 +106,17 @@ const InspirationSection: React.FC = () => {
 
   return (
     <section className="products-section flex sm:flex-col lg:flex-row bg-[#FCF8F3] lg:p-20 sm:p-4 items-center font-poppins">
-      <div className="w-1/3 p-2 mr-6">
-        <h2 className="text-[40px] font-bold mb-4 text-[#3A3A3A]">
+      <div className="lg:w-1/3 lg:p-2 lg:mr-6">
+        <h2 className="lg:text-[40px] sm:text-[30px] font-bold mb-4 text-[#3A3A3A] text-center md:mt-4">
           50+ Beautiful Rooms Inspiration
         </h2>
-        <p className="text-lg mb-6 font-medium text-[#616161]">
+        <p className="lg:text-lg lg:mb-6 font-medium text-[#616161] sm:mb-6">
           Our designer already made a lot of beautiful prototypes of rooms that
           inspire you.
         </p>
       </div>
 
-      <div className="lg:w-2/3 sm:w-full">
+      <div className="lg:w-2/3 sm:w-full md:w-full">
         <Splide
           options={{
             type: "loop",
@@ -130,9 +130,11 @@ const InspirationSection: React.FC = () => {
             focus: "left",
             breakpoints: {
               1024: {
+                type:'loop',
                 perPage: 1,
                 gap: "1rem",
                 pagination: false,
+                focus: "center",                
               },
             },
           }}

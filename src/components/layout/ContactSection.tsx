@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ThankYouOverlay from "../common/ThankYouOverlay";
 
 type FormErrors = {
   name?: string;
@@ -13,6 +14,7 @@ const ContactSection: React.FC = () => {
   const [message, setMessage] = useState("");
 
   const [errors, setErrors] = useState<FormErrors>({});
+  const [isThankYouVisible, setIsThankYouVisible] = useState(false);
 
   const validateForm = () => {
     const newErrors: FormErrors = {};
@@ -25,8 +27,8 @@ const ContactSection: React.FC = () => {
       newErrors.email = "Please enter a valid email address.";
     }
 
-    if (message.trim().length < 50) {
-      newErrors.message = "Message must have at least 50 characters.";
+    if (message.trim().length < 20) {
+      newErrors.message = "Message must have at least 20 characters.";
     }
 
     setErrors(newErrors);
@@ -48,7 +50,7 @@ const ContactSection: React.FC = () => {
       setSubject("");
       setMessage("");
       setErrors({});
-      alert("Form submitted successfully!");
+      setIsThankYouVisible(true);
     }
   };
 
@@ -58,15 +60,15 @@ const ContactSection: React.FC = () => {
         <h2 className="text-2xl md:text-3xl font-semibold text-black">
           Get In Touch With Us
         </h2>
-        <p className="text-base md:text-lg text-gray-500 mt-2 max-w-2xl mx-auto pt-[7px]">
+        <p className="text-base md:text-lg sm:text-sm text-gray-500 mt-2 max-w-2xl mx-auto pt-[7px] sm:px-5">
           For more information about our product & services, please feel free to
           drop us an email. Our staff is always here to help you out. Do not
           hesitate!
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-center gap-x-8 md:gap-x-[160px] mt-10">
-        <div className="flex flex-col sm:flex-row gap-8 md:pt-[130px] px-4 md:px-0 sm:items-center">
+      <div className="flex flex-col lg:flex-row md:flex-col justify-center lg:gap-x-[160px] md:gap-x-4 mt-10 md:items-center lg:items-start lg:px-[191px] sm:px-1">
+        <div className="flex flex-col lg:items-start sm:flex-row lg:flex-col gap-8 md:pt-[10px] lg:pt-20 px-4 md:px-0 sm:items-center">
           <div className="flex flex-row items-start">
             <img
               src="https://desafio-3.s3.us-east-1.amazonaws.com/address.svg"
@@ -111,12 +113,13 @@ const ContactSection: React.FC = () => {
             </div>
           </div>
         </div>
+
         <form
           onSubmit={handleSubmit}
-          className="bg-white mt-10 md:mt-[130px] p-6 md:p-8 flex flex-col gap-6 w-full md:w-[528px] mx-4 md:mx-0"
+          className="bg-white lg:mt-10 sm:mt-8 md:mt-8 lg:p-6 md:p-18 sm:p-8 flex flex-col lg:gap-6 sm:gap-6 lg:w-1/2 md:w-full sm:w-full lg:mx-4 md:mx-0 md:items-center"
         >
-          <div className="flex flex-col mb-4">
-            <label htmlFor="name" className="block font-medium text-black">
+          <div className="flex flex-col w-full mb-4">
+            <label htmlFor="name" className="block font-medium text-black w-full">
               Your Name
             </label>
             <input
@@ -134,12 +137,12 @@ const ContactSection: React.FC = () => {
             )}
           </div>
 
-          <div className="flex flex-col mb-4">
-            <label htmlFor="email" className="block font-medium text-black">
+          <div className="flex flex-col mb-4 w-full">
+            <label htmlFor="email" className="block font-medium text-black ">
               Email Address
             </label>
             <input
-              type="email"
+              type="text"
               id="email"
               placeholder="Abc@def.com"
               value={email}
@@ -153,7 +156,7 @@ const ContactSection: React.FC = () => {
             )}
           </div>
 
-          <div className="flex flex-col mb-4">
+          <div className="flex flex-col mb-4 w-full">
             <label htmlFor="subject" className="block font-medium text-black">
               Subject
             </label>
@@ -167,7 +170,7 @@ const ContactSection: React.FC = () => {
             />
           </div>
 
-          <div className="flex flex-col mb-4">
+          <div className="flex flex-col mb-4 w-full">
             <label htmlFor="message" className="block font-medium text-black">
               Message
             </label>
@@ -188,12 +191,16 @@ const ContactSection: React.FC = () => {
 
           <button
             type="submit"
-            className="bg-[#B88E2F] w-full md:w-[237px] h-[55px] text-white font-medium py-2 px-6 rounded-lg text-[16px] mt-[20px]"
+            className="bg-[#B88E2F] w-full md:w-[237px] h-[55px] text-white font-medium py-2 px-6 text-[16px] mt-[20px]"
           >
             Submit
           </button>
         </form>
       </div>
+
+      {isThankYouVisible && (
+        <ThankYouOverlay onClose={() => setIsThankYouVisible(false)} />
+      )}
     </section>
   );
 };
