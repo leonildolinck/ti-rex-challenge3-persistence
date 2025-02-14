@@ -28,7 +28,7 @@ const CheckoutSection: React.FC = () => {
   };
 
   return (
-    <div className="lg:flex lg:flex-row sm:flex sm:flex-col">
+    <div className="lg:flex lg:flex-row sm:flex sm:flex-col lg:justify-center">
       <CheckoutForm onFormSubmit={handleFormSubmit} />
       <PlaceOrder formData={formData} />
     </div>

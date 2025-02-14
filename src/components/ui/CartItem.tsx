@@ -7,7 +7,7 @@ interface Product {
   name: string;
   image: string;
   quantity: number;
-  actual_price: number;
+  price: number;
 }
 
 interface CartItemProps {
@@ -34,7 +34,7 @@ const CartItem: React.FC<CartItemProps> = ({ product }) => {
   return (
     <div className="flex flex-row text-poppins ml-6 mt-6 mr-10 justify-between items-center">
       <img
-        src={product.image}
+        src={product.image[0]}
         alt={product.name}
         className="h-[110px] w-[110px] rounded-[10px]"
       />
@@ -46,7 +46,7 @@ const CartItem: React.FC<CartItemProps> = ({ product }) => {
           <button onClick={handleIncreaseClick}>+</button>
         </div>
         <p className="text-[12px] text-[#B88E2F]">
-          R$ {new Intl.NumberFormat("pt-BR").format(product.actual_price * product.quantity)}
+          R$ {new Intl.NumberFormat("pt-BR").format(product.price * product.quantity)}
         </p>
       </div>
       <button onClick={handleRemoveClick}>

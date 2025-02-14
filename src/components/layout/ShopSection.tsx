@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ApiFetcher from "../../services/ApiFetcher";
 import Product from "../../services/ProductInterface";
 import LoadingSpinner from "../common/LoadingSpinner";
@@ -23,26 +23,23 @@ const ShopSection: React.FC = () => {
   const [processedData, setProcessedData] = useState<Product[]>([]);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
 
-  useEffect(() => {
-    if (allProducts.length > 0) {
-      const allPrices = allProducts.map((product) => product.actual_price);
-      setMinPrice(Math.min(...allPrices));
-      setMaxPrice(Math.max(...allPrices));
-    }
-  }, [allProducts]);
+  const handleDataFetched = useCallback((data: Product[]) => {
+    setAllProducts(data);
+  }, []);
 
   useEffect(() => {
     if (allProducts.length > 0) {
-      const allPrices = allProducts.map((product) => product.actual_price);
+      const allPrices = allProducts.map((product) => product.price);
       const min = Math.min(...allPrices);
       const max = Math.max(...allPrices);
+
       setMinPrice(min);
       setMaxPrice(max);
 
       setFilters((prev) => ({
         ...prev,
-        minPrice: min.toString(),
-        maxPrice: max.toString(),
+        minPrice: prev.minPrice === "" ? min.toString() : prev.minPrice,
+        maxPrice: prev.maxPrice === "" ? max.toString() : prev.maxPrice,
       }));
     }
   }, [allProducts]);
@@ -54,10 +51,10 @@ const ShopSection: React.FC = () => {
           .toLowerCase()
           .includes(filters.name.toLowerCase());
         const matchesMinPrice = filters.minPrice
-          ? product.actual_price >= parseFloat(filters.minPrice)
+          ? product.price >= parseFloat(filters.minPrice)
           : true;
         const matchesMaxPrice = filters.maxPrice
-          ? product.actual_price <= parseFloat(filters.maxPrice)
+          ? product.price <= parseFloat(filters.maxPrice)
           : true;
         return matchesName && matchesMinPrice && matchesMaxPrice;
       })
@@ -65,7 +62,7 @@ const ShopSection: React.FC = () => {
         if (sortBy === "name") {
           return a.name.localeCompare(b.name);
         }
-        return a.actual_price - b.actual_price;
+        return a.price - b.price;
       });
 
     setProcessedData(filtered);
@@ -183,7 +180,6 @@ const ShopSection: React.FC = () => {
               alt="List View"
             />
           </button>
-
           <img
             src="https://desafio-3.s3.us-east-1.amazonaws.com/barra.svg"
             alt="separator"
@@ -239,15 +235,13 @@ const ShopSection: React.FC = () => {
           </select>
         </div>
       </div>
-
       <ApiFetcher
         url="http://ec2-34-239-122-225.compute-1.amazonaws.com:3000/products"
+        onDataFetched={handleDataFetched}
         render={(data, isLoading, error) => {
           if (isLoading) return <LoadingSpinner />;
           if (error) return <p>Erro: {error}</p>;
           if (!data || data.length === 0) return <p>No products</p>;
-
-          setAllProducts(data);
 
           const startIndex = (currentPage - 1) * itemsPerPage;
           const endIndex = startIndex + itemsPerPage;

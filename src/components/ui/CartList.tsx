@@ -7,7 +7,7 @@ interface Product {
   name: string;
   image: string;
   quantity: number;
-  actual_price: number;
+  price: number;
 }
 
 interface CartItemProps {
@@ -31,7 +31,7 @@ const CartList: React.FC<CartItemProps> = ({ product }) => {
       <div className="flex flex-col ml-4 w-1/2 gap-4">
         <p className="">{product.name}</p>
         <p>{product.quantity}</p>
-        <p className="text-[12px] text-[#B88E2F]">R$ {product.actual_price}</p>
+        <p className="text-[12px] text-[#B88E2F]">R$ {product.price}</p>
       </div>
       <button onClick={handleRemoveClick}>
         <img

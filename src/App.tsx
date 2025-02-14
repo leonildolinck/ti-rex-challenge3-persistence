@@ -13,6 +13,7 @@ import UserSync from "./hooks/UserSync";
 import AuthCallback from "./services/AuthCallback";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
+import LoadingSpinner from "./components/common/LoadingSpinner";
 
 
 const App: React.FC = () => {
@@ -38,6 +39,10 @@ const App: React.FC = () => {
         </Route>
 
         <Route path="/*" element={<NotFound />} />
+
+
+
+        <Route path="/load" element={<LoadingSpinner  />} />
       </Routes>
     </div>
   );

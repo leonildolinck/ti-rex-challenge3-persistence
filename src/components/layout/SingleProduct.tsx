@@ -17,23 +17,9 @@ import {
 import Button from "../common/Button";
 import ProductsGrid from "../common/ProductsGrid";
 import ApiFetcher from "../../services/ApiFetcher";
+import ThumbnailCarousel from "../common/ThumbnailCarousel";
+import Product from "../../services/ProductInterface";
 
-interface Product {
-  id: string;
-  name: string;
-  image: string;
-  type: string;
-  old_price: number;
-  actual_price: number;
-  description: string;
-  additional: string;
-  size: string;
-  color: string;
-  SKU: string;
-  category: string;
-  tags: string[];
-  quantity: number;
-}
 
 interface CartPageItemProps {
   product: Product;
@@ -141,36 +127,10 @@ const SingleProduct: React.FC<CartPageItemProps> = () => {
         <p className="sm:text-sm">{product?.name}</p>
       </div>
 
-      <div className="lg:flex lg:mx-auto lg:p-4 lg:flex-row lg:items-center lg:justify-center lg:gap-20 font-poppins sm:flex-col sm:px-4 sm:gap-6 sm:mt-4">
-        <div className="flex flex-row gap-8 sm:mb-4">
-          <div className="sm:hidden md:hidden flex flex-col gap-8">
-            <img
-              src={product?.image}
-              alt=""
-              className="lg:w-[80px] lg:h-[80px] lg:object-cover sm:w-full sm:h-auto rounded-lg"
-            />
-            <img
-              src={product?.image}
-              alt=""
-              className="lg:w-[80px] lg:h-[80px] lg:object-cover sm:w-full sm:h-auto rounded-lg"
-            />
-            <img
-              src={product?.image}
-              alt=""
-              className="lg:w-[80px] lg:h-[80px] lg:object-cover sm:w-full sm:h-auto rounded-lg"
-            />
-            <img
-              src={product?.image}
-              alt=""
-              className="lg:w-[80px] lg:h-[80px] lg:object-cover sm:w-full sm:h-auto rounded-lg"
-            />
-          </div>
-          <img
-            src={product?.image}
-            alt=""
-            className="lg:w-[423px] lg:h-[500px] lg:object-cover sm:w-full sm:h-auto rounded-lg"
-          />
-        </div>
+      <div className="lg:flex lg:mx-auto lg:p-4 lg:flex-row lg:items-start lg:justify-center lg:gap-20 font-poppins sm:flex-col sm:px-4 sm:gap-6 sm:mt-4">
+
+      <ThumbnailCarousel products={product ? [product] : []} />
+
         {product && (
           <div className="overflow-hidden">
             <div className="lg:flex lg:flex-col lg:p-4 lg:gap-4 sm:gap-1">
@@ -178,7 +138,7 @@ const SingleProduct: React.FC<CartPageItemProps> = () => {
                 {product.name}
               </h2>
               <p className="lg:text-[24px] lg:font-medium lg:text-[#9F9F9F] sm:text-[18px] sm:text-gray-700">
-                R$ {new Intl.NumberFormat("pt-BR").format(product.actual_price)}
+                R$ {new Intl.NumberFormat("pt-BR").format(product.price)}
               </p>
               <div className="lg:flex lg:flex-row lg:items-center lg:gap-4 sm:flex-col sm:items-start sm:gap-2">
                 <StarRating rating={3} />
@@ -243,8 +203,10 @@ const SingleProduct: React.FC<CartPageItemProps> = () => {
                   <p>Tags</p>
                   <p>Share</p>
                 </div>
-                <div className="sm:hidden md:hidden lg:flex sm:flex-row lg:flex-col lg:gap-3
-                 lg:text-[#9F9F9F] font-poppins sm:text-sm sm:text-gray-700">
+                <div
+                  className="sm:hidden md:hidden lg:flex sm:flex-row lg:flex-col lg:gap-3
+                 lg:text-[#9F9F9F] font-poppins sm:text-sm sm:text-gray-700"
+                >
                   <p>: {product.SKU}</p>
                   <p>: {product.category}</p>
                   <p>: {product.tags}</p>
@@ -316,18 +278,18 @@ const SingleProduct: React.FC<CartPageItemProps> = () => {
           </p>
         </div>
         <div className="lg:flex lg:flex-row lg:gap-[30px] lg:items-center lg:justify-center lg:mt-[36px] sm:flex-col sm:gap-4 sm:mt-4">
-          <div className="lg:flex lg:bg-[#F9F1E7] lg:rounded-[10px] sm:bg-transparent">
+          <div className="lg:flex lg:bg-[#F9F1E7] lg:rounded-[10px] sm:bg-transparent md:flex md:flex-col items-center">
             <img
-              src="https://desafio-3.s3.us-east-1.amazonaws.com/sofa.png"
+              src={product.scene?.[0] || "https://desafio-3.s3.us-east-1.amazonaws.com/sofa.png"}              
               alt="produto relacionado"
-              className="lg:h-[348px] lg:w-[605px] sm:w-full sm:h-auto"
+              className="lg:h-[348px] lg:w-[605px] sm:h-auto md:h-1/2 md:w-2/3"
             />
           </div>
-          <div className="lg:flex lg:bg-[#F9F1E7] lg:rounded-[10px] sm:bg-transparent">
+          <div className="lg:flex lg:bg-[#F9F1E7] lg:rounded-[10px] sm:bg-transparent md:flex md:flex-col items-center">
             <img
-              src="https://desafio-3.s3.us-east-1.amazonaws.com/sofa.png"
+              src={product.scene?.[1] || "https://desafio-3.s3.us-east-1.amazonaws.com/sofa.png"}
               alt="produto relacionado"
-              className="lg:h-[348px] lg:w-[605px] sm:w-full sm:h-auto"
+              className="lg:h-[348px] lg:w-[605px] sm:w-full sm:h-auto md:h-1/2 md:w-2/3"
             />
           </div>
         </div>
@@ -354,7 +316,7 @@ const SingleProduct: React.FC<CartPageItemProps> = () => {
               />
 
               {canShowMore && (
-                <div className="sm:px-16 lg:text-center sm:text-center mt-6">
+                <div className="sm:px-16 lg:text-center sm:text-center mt-6 sm:hidden">
                   <Button
                     onClick={handleShowMore}
                     label="Show More"

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSignIn, useAuth } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 const LoginSection: React.FC = () => {
   const { signIn, isLoaded: isSignInLoaded } = useSignIn();
@@ -11,6 +12,7 @@ const LoginSection: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (isSignedIn) {
@@ -25,7 +27,7 @@ const LoginSection: React.FC = () => {
     }
 
     setError(null);
-
+    setLoading(true);
     try {
       const signInResponse = await signIn.create({
         identifier: email,
@@ -40,9 +42,9 @@ const LoginSection: React.FC = () => {
       }
     } catch (error) {
       console.error("Error on login:", error);
-      const errorMessage = error?.message
+      const errorMessage = error?.message;
       setError(errorMessage);
-    } 
+    }
   };
 
   const handleSocialLogin = async (provider: string) => {
@@ -60,90 +62,105 @@ const LoginSection: React.FC = () => {
     } catch (error) {
       console.error(`Login error with ${provider}:`, error);
       setError(`Error as  ${provider}.`);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <section className="w-full bg-white py-16">
-      <div className="flex justify-center">
-        <div className="bg-white w-full max-w-md p-8">
-          <div className="mb-6">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-black"
-            >
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="example@domain.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full mt-2 p-3 border border-gray-300"
-            />
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-black"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full mt-2 p-3 border border-gray-300"
-            />
-          </div>
-
-          {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
-
-          <div className="text-center">
-          <button
-          onClick={handleLogin}
-                  type="button"
-                  className="bg-[#B88E2F] hover:bg-yellow-600 text-white font-medium py-2 px-6 w-full"
-                >
-                  Sign In
-                </button>
-          </div>
-          <p className="text-center mt-4">Don't have an account? Try 
-            <Link to="/register" className="text-blue-500 hover:text-blue-700"> Sign Up</Link>
-          </p>
-
-
-          <div className="flex justify-center mt-4 gap-4">
-            <button
-              type="button"
-              onClick={() => handleSocialLogin("google")}
-              className="border border-gray-300 rounded-full p-3 hover:bg-gray-100"
-            >
-              <img
-                src="https://desafio-3.s3.us-east-1.amazonaws.com/google-logo.svg"
-                alt="Google"
-                className="w-5 h-5"
+    <div>
+      {loading && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <LoadingSpinner />
+        </div>
+      )}
+      <section className="w-full bg-white py-16">
+        <div className="flex justify-center">
+          <div className="bg-white w-full max-w-md p-8">
+            <div className="mb-6">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-black"
+              >
+                Email Address
+              </label>
+              <input
+                type="email"
+                id="email"
+                placeholder="example@domain.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full mt-2 p-3 border border-gray-300"
               />
-            </button>
-            <button
-              type="button"
-              onClick={() => handleSocialLogin("facebook")}
-              className="border border-gray-300 rounded-full p-3 hover:bg-gray-100"
-            >
-              <img
-                src="https://desafio-3.s3.us-east-1.amazonaws.com/facebook-logo.svg"
-                alt="Facebook"
-                className="w-5 h-5"
+            </div>
+            <div className="mb-6">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-black"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full mt-2 p-3 border border-gray-300"
               />
-            </button>
+            </div>
+            {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
+            <div className="text-center">
+              <button
+                onClick={() => {
+                  handleLogin();
+                  setTimeout(() => window.location.reload(), 1600);
+                  setTimeout(() => navigate("/cart"), 300); 
+                }}
+                type="button"
+                className="bg-[#B88E2F] hover:bg-yellow-600 text-white font-medium py-2 px-6 w-full"
+              >
+                Sign In
+              </button>
+            </div>
+            <p className="text-center mt-4">
+              Don't have an account? Try
+              <Link
+                to="/register"
+                className="text-blue-500 hover:text-blue-700"
+              >
+                {" "}
+                Sign Up
+              </Link>
+            </p>
+            <div className="flex justify-center mt-4 gap-4">
+              <button
+                type="button"
+                onClick={() => handleSocialLogin("google")}
+                className="border border-gray-300 rounded-full p-3 hover:bg-gray-100"
+              >
+                <img
+                  src="https://desafio-3.s3.us-east-1.amazonaws.com/google-logo.svg"
+                  alt="Google"
+                  className="w-5 h-5"
+                />
+              </button>
+              <button
+                type="button"
+                onClick={() => handleSocialLogin("facebook")}
+                className="border border-gray-300 rounded-full p-3 hover:bg-gray-100"
+              >
+                <img
+                  src="https://desafio-3.s3.us-east-1.amazonaws.com/facebook-logo.svg"
+                  alt="Facebook"
+                  className="w-5 h-5"
+                />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 

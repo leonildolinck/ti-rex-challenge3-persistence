@@ -1,10 +1,11 @@
 export default interface Product {
   id: string;
   name: string;
-  image: string;
+  image: string[];
+  scene: string[];
   type: string;
-  old_price: number;
-  actual_price: number;
+  oldPrice: number;
+  price: number;
   description: string;
   additional: string;
   size: string;

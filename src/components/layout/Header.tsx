@@ -97,6 +97,7 @@ const Header: React.FC = () => {
               <img
                 src="https://desafio-3.s3.us-east-1.amazonaws.com/cart.svg"
                 alt="Cart"
+                className="mt-[9px]"
               />
             </button>
           </div>

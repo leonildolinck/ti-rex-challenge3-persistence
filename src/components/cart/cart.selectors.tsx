@@ -4,7 +4,7 @@ export const selectProductsCount = (state) => {
 
 export const selectProductsTotalPrice = (state) => {
   return state.cart.products.reduce(
-    (acc, curr) => acc + curr.actual_price * curr.quantity,
+    (acc, curr) => acc + curr.price * curr.quantity,
     0
   );
 };

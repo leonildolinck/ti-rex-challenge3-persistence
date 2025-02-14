@@ -10,7 +10,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
-  const { old_price: oldPrice, actual_price: actualPrice } = product;
+  const { oldPrice: oldPrice, price: actualPrice } = product;
   const discount =
     oldPrice > actualPrice
       ? Math.round(((oldPrice - actualPrice) / oldPrice) * 100)
@@ -19,7 +19,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
   return (
     <div
       className={`lg:relative lg:mt-6 md:mt-6 sm:mt-6 sm:relative bg-[#F4F5F7] overflow-hidden ${
-        viewMode === "grid" ? "lg:w-[285px] sm:w-[150px]" : "flex p-2 mb-2 ml-10 mr-10"
+        viewMode === "grid"
+          ? "lg:w-[285px] sm:w-[150px]"
+          : "flex p-2 mb-2 ml-10 mr-10"
       }`}
     >
       {discount !== null && discount > 0 ? (
@@ -33,15 +35,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
       )}
 
       <Link to={`/product/${product.id}`}>
-        <img
-          src={product.image}
-          alt={product.name}
-          className={
-            viewMode === "grid"
-              ? "lg:w-[285px] lg:h-[300px] sm:w-[150px] sm:h-[150px] object-cover"
-              : "lg:w-[150px] lg:h-[150px] sm:w-[100px] sm:h-[100px] object-cover"
-          }
-        />
+      <img
+  src={product.scene?.[0] || "https://desafio-3.s3.us-east-1.amazonaws.com/share-9.png"}
+  alt={product.name}
+  className={
+    viewMode === "grid"
+      ? "lg:w-[285px] lg:h-[300px] sm:w-[150px] sm:h-[150px] object-cover bg-[#F9F1E7]"
+      : "lg:w-[150px] lg:h-[150px] sm:w-[100px] sm:h-[100px] object-cover"
+  }
+/>
       </Link>
 
       <div
@@ -74,15 +76,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
       </div>
 
       {viewMode === "grid" && (
-        <div className="lg:absolute sm:hidden lg:flex lg:inset-0 bg-[#3A3A3A] bg-opacity-70 opacity-0 hover:opacity-100 flex items-center justify-center transition-opacity">
+        <div className="lg:absolute sm:hidden lg:flex flex-col lg:inset-0 bg-[#3A3A3A] bg-opacity-70 opacity-0 hover:opacity-100 flex items-center justify-center transition-opacity gap-6">
           <Link to={`/product/${product.id}`}>
-          <Button
-            label="Add to cart"
-            type="button"
-            kind="outline"
-            size="sm"
-          />
+            <Button
+              label="Add to cart"
+              type="button"
+              kind="outline"
+              size="sm"
+            />
           </Link>
+          <img
+            src="https://desafio-3.s3.us-east-1.amazonaws.com/card-options.svg"
+            alt=""
+          />
         </div>
       )}
     </div>

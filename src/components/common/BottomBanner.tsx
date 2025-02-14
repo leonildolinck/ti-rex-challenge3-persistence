@@ -2,7 +2,7 @@ import React from "react";
 
 const BottomBanner: React.FC = () => {
   return (
-    <div className="sm:hidden md:flex lg:flex flex flex-col w-full lg:h-[270px] md:h-[160px] bg-[#FAF3EA] font-poppins lg:items-center lg:justify-center md:items-center md:justify-center">
+    <div role="banner" className="sm:hidden md:hidden lg:flex flex flex-col w-full lg:h-[270px] md:h-[160px] bg-[#FAF3EA] font-poppins lg:items-center lg:justify-center md:items-center md:justify-center">
       <div className="flex flex-row items-center gap-[55px]">
         <div className="flex flex-row gap-4 items-center">
           <img
