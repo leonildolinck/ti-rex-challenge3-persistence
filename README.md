@@ -309,6 +309,10 @@ Use the following scripts defined in the `package.json`:
   ```
 ## Final Considerations ##
 
+Link to website:
+
+http://ec2-34-239-122-225.compute-1.amazonaws.com/
+
 This project represents an important step in my learning journey, applying both theoretical and practical knowledge gained during the Compass Scholarship Program. While striving for simplicity and efficiency, there's always room for growth and improvement.
 
 Thank you for taking the time to review this project. Your feedback, suggestions, or any collaboration opportunities are highly appreciated.

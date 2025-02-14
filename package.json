@@ -26,6 +26,7 @@
     "react-share": "^5.2.0",
     "redux": "^5.0.1",
     "redux-logger": "^3.0.6",
+    "redux-mock-store": "^1.5.5",
     "zod": "^3.24.1"
   },
   "devDependencies": {

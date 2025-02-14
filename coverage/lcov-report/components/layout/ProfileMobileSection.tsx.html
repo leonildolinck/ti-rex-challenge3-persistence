@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for BottomBanner.tsx</title>
+    <title>Code coverage report for components/layout/ProfileMobileSection.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="prettify.css" />
-    <link rel="stylesheet" href="base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="index.html">All files</a> BottomBanner.tsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/layout</a> ProfileMobileSection.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>7/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -122,49 +122,17 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,80 +182,64 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
+import { useUser, SignOutButton } from "@clerk/clerk-react";
 &nbsp;
-const BottomBanner: React.FC = () =&gt; {
+const ProfileMobileSection: React.FC = () =&gt; {
+  const { user } = useUser();
+&nbsp;
+  const email = user.emailAddresses<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>]<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>mailAddress || <span class="branch-1 cbranch-no" title="branch not covered" >"Not available";</span>
+  const formattedSignUp = new Date(user.createdAt).toLocaleDateString();
+  const formattedLastSignIn = new Date(user.lastSignInAt).toLocaleDateString();
+&nbsp;
   return (
-    &lt;div role="banner" className="sm:hidden md:hidden lg:flex flex flex-col w-full lg:h-[270px] md:h-[160px] bg-[#FAF3EA] font-poppins lg:items-center lg:justify-center md:items-center md:justify-center"&gt;
-      &lt;div className="flex flex-row items-center gap-[55px]"&gt;
-        &lt;div className="flex flex-row gap-4 items-center"&gt;
-          &lt;img
-            src="https://desafio-3.s3.us-east-1.amazonaws.com/quality-icon.svg"
-            alt="Quality Icon"
-            className="lg:h-[60px] lg:w-[60px] md:h-[30px] md:w-[30px]"
-          /&gt;
+      &lt;div className="flex justify-center"&gt;
+        &lt;div className="flex flex-col bg-white w-[417px] min-h-[746px] justify-between"&gt;
           &lt;div&gt;
-            &lt;h1 className="font-semibold text-[#242424] lg:text-[25px] md:text-[16px]"&gt;
-              High Quality
-            &lt;/h1&gt;
-            &lt;p className="font-medium text-[#898989] lg:text-[20px] md:text-[10px]"&gt;
-              crafted from top materials
-            &lt;/p&gt;
+            &lt;h2 className="text-2xl font-semibold mb-4 p-8"&gt;Profile&lt;/h2&gt;
+            &lt;hr className="ml-8 mr-20 border-t border-[#D9D9D9]" /&gt;
           &lt;/div&gt;
-        &lt;/div&gt;
-&nbsp;
-        &lt;div className="flex flex-row gap-4 items-center"&gt;
-          &lt;img
-            src="https://desafio-3.s3.us-east-1.amazonaws.com/warranty-icon.svg"
-            alt="Warranty Icon"
-            className="lg:h-[60px] lg:w-[60px] md:h-[30px] md:w-[30px]"
-          /&gt;
-          &lt;div&gt;
-            &lt;h1 className="font-semibold text-[#242424] lg:text-[25px] md:text-[16px]"&gt;
-              Warranty Protection
-            &lt;/h1&gt;
-            &lt;p className="font-medium text-[#898989] lg:text-[20px] md:text-[10px]"&gt;
-              Over 2 years
-            &lt;/p&gt;
+          &lt;div className="flex-1 overflow-auto px-8"&gt;
+            &lt;div className="flex flex-col items-center gap-4 mt-4"&gt;
+              &lt;img
+                src={user.imageUrl}
+                alt="Profile Avatar"
+                className="w-24 h-24 rounded-full border border-gray-300"
+              /&gt;
+              &lt;h3 className="text-lg font-semibold"&gt;
+                {user.firstName} {user.lastName}
+              &lt;/h3&gt;
+              &lt;p className="text-gray-600"&gt;{email}&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div className="mt-8 space-y-4"&gt;
+              &lt;div className="flex justify-between"&gt;
+                &lt;span className="text-gray-700"&gt;Member since:&lt;/span&gt;
+                &lt;span className="font-medium"&gt;{formattedSignUp}&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div className="flex justify-between"&gt;
+                &lt;span className="text-gray-700"&gt;Last Sign In:&lt;/span&gt;
+                &lt;span className="font-medium"&gt;{formattedLastSignIn}&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div className="flex justify-between"&gt;
+                &lt;span className="text-gray-700"&gt;Total Orders:&lt;/span&gt;
+                &lt;span className="font-medium"&gt;25&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
           &lt;/div&gt;
-        &lt;/div&gt;
-&nbsp;
-        &lt;div className="flex flex-row gap-4 items-center"&gt;
-          &lt;img
-            src="https://desafio-3.s3.us-east-1.amazonaws.com/shipping-icon.svg"
-            alt="Shipping Icon"
-            className="lg:h-[60px] lg:w-[60px] md:h-[30px] md:w-[30px]"
-          /&gt;
-          &lt;div&gt;
-            &lt;h1 className="font-semibold text-[#242424] lg:text-[25px] md:text-[16px]"&gt;
-              Free Shipping
-            &lt;/h1&gt;
-            &lt;p className="font-medium text-[#898989] lg:text-[20px] md:text-[10px]"&gt;
-              Order over 150 $
-            &lt;/p&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-&nbsp;
-        &lt;div className="flex flex-row gap-4 items-center"&gt;
-          &lt;img
-            src="https://desafio-3.s3.us-east-1.amazonaws.com/support-icon.svg"
-            alt="Support Icon"
-            className="lg:h-[60px] lg:w-[60px] md:h-[30px] md:w-[30px]"
-          /&gt;
-          &lt;div&gt;
-            &lt;h1 className="font-semibold text-[#242424] lg:text-[25px] md:text-[16px]"&gt;
-              24 / 7 Support
-            &lt;/h1&gt;
-            &lt;p className="font-medium text-[#898989] lg:text-[20px] md:text-[10px]"&gt;
-              Dedicated support
-            &lt;/p&gt;
+          &lt;div className="flex flex-col min-h-[84px] items-center justify-center border-t border-[#D9D9D9] mt-4"&gt;
+            &lt;div className="flex flex-row text-[12px] gap-4"&gt;
+              &lt;SignOutButton&gt;
+                &lt;button className="flex border border-[#000000] rounded-[50px] h-[30px] items-center justify-center px-6"&gt;
+                  Logout
+                &lt;/button&gt;
+              &lt;/SignOutButton&gt;
+            &lt;/div&gt;
           &lt;/div&gt;
         &lt;/div&gt;
       &lt;/div&gt;
-    &lt;/div&gt;
   );
 };
 &nbsp;
-export default BottomBanner;
+export default ProfileMobileSection;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -295,16 +247,16 @@ export default BottomBanner;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-14T19:54:39.754Z
+                at 2025-02-14T20:13:26.337Z
             </div>
-        <script src="prettify.js"></script>
+        <script src="../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="sorter.js"></script>
-        <script src="block-navigation.js"></script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
     </body>
 </html>
     
