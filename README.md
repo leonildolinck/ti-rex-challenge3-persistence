@@ -61,7 +61,7 @@ This repository contains the complete solution for Challenge 3 of the Compass UO
 
 ## 8. Contact
 ### Desktop
-<img src="https://github.com/leonildolinck/ti-rex-challenge3-persistence/blob/main/screenshots/conjtact.png" />
+<img src="https://github.com/leonildolinck/ti-rex-challenge3-persistence/blob/main/screenshots/contact.png" />
 
 ### By Page/Component:
 
